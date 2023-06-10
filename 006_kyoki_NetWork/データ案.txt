@@ -1,0 +1,4 @@
+HDF5ファイルとして保存する: HDF5形式は大容量のデータセットを効率的に保存するためのファイル形式です。DataFrameのto_hdf()メソッドを使用してデータをHDF5ファイルに保存できます。
+python
+Copy code
+df.to_hdf('data.h5', key='data', mode='w')
