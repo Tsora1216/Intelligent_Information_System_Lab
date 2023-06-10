@@ -1,0 +1,8 @@
+NetworkXの作成・理解
+https://www.youtube.com/watch?v=czTzLQ0DUyM
+
+python(networkx)によるネットワーク分析メモ1 ネットワーク分析の基礎
+https://qiita.com/tanaka_benkyo/items/3a242e0ca7724973dcd9
+
+Pythonによる反応拡散シミュレーションをJITで高速化
+https://qiita.com/kaityo256/items/3c07252ab63591256835
