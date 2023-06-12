@@ -4,9 +4,9 @@ tags: データサイエンティスト
 author: Tsora1216
 slide: false
 ---
-# [04月の活動](https://qiita.com/Tsora1216/private/61bbf80df192faa1cbf8)
+# [04月の活動](./01_activity_04.md)
 投稿済み
-# [05月の活動](https://qiita.com/Tsora1216/private/850e8b3e08e4c03c8984)
+# [05月の活動](./01_activity_05.md)
 投稿中（↑クリックしてください）
 # 06月の活動
 未投稿

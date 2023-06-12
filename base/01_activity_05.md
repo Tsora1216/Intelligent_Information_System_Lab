@@ -4,11 +4,6 @@ tags: AI Python 強化学習 機械学習 転移学習
 author: Tsora1216
 slide: false
 ---
-::: note info
-この記事は下記のURLを参考に作成されたMD形式の記事です。
-:::
-
-https://qiita.com/Qiita/items/c686397e4a0f4f11683d
 
 ## 2023/05/01～2023/05/07の活動
 * 学習
@@ -145,29 +140,6 @@ https://qiita.com/Qiita/items/c686397e4a0f4f11683d
 
 ## 2023/05/29～2023/06/04の活動
 
-# SAPnetを作成する
-## 二次元マップをテスト
-二次元マップで中心にエージェントを仮想的に配置した
-10個のランダムな距離と中心からの角度を生成し、それらを点P群とした
-それらの点P群は距離は0～500cm(5m)で、角度は0～360°の値をとっている
-それらの点P群を二次元マップに書き込んで表示している
-![a9ce7eb9-e6f0-49bf-a003-e9213a63fcbd.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2502107/23831501-810d-85e0-c0e5-27f0c06e7b0a.png)
-
-さらに線を追加して中心からの距離を可視化
-![6ac57f35-aba0-49af-94ba-014cb3e20464.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2502107/1b748d2e-a9e8-ed38-856f-937cdc0bdb2d.png)
-
-情報を保存する必要があることに気づく。
-情報は下記の通りである
-| 知識名       | 角度Θ(°) | 距離r(m) | 
-| ------------ | ---- | ---- | 
-| 直進         | 320  | 4    | 
-| 右寄りの直進 | 340  | 2    | 
-| 直進         | 0    | 1    | 
-| 右寄りの直進 | 20  | 2    | 
-| 直進         | 40    | 4    |
- 
-
-## 2023/04/01～2023/04/02の活動
-
-
-Ask AI to edit or generate...
+SAPnetを論文投稿に向けて作成し始めた
+Microsoft Buildの登壇者に選出していただいた。
+![Alt text](https://connpass-tokyo.s3.amazonaws.com/thumbs/84/7b/847b437d8c6ba97682e5b9830a294cfb.png)

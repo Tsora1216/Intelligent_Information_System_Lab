@@ -4,12 +4,6 @@ tags: Python 強化学習 機械学習 AI 転移学習
 author: Tsora1216
 slide: false
 ---
-::: note info
-この記事は下記のURLを参考に作成されたMD形式の記事です。
-:::
-
-https://qiita.com/Qiita/items/c686397e4a0f4f11683d
-
 
 ## 2023/04/01～2023/04/02の活動
 
@@ -33,12 +27,18 @@ https://qiita.com/Qiita/items/c686397e4a0f4f11683d
         * 活性化と忘却のバランスを考える
         * とりあえずCで並列計算を実装してみる
         * 画像認識をやってみる（とりちゃんと並走してOK）
+        
 * Kaggle
+  ![](https://gyazo.com/1fc1faa423803705dab95947e6222db7)
   * 始める
   * コンペティションを眺める
+  <br></br>
 * Signateを始める
+
+  ![Alt text](image-2.png)
   * チュートリアル有のコンペティションに参加
   * 銀行の打ち出したイベントの効果を機械学習により数値化
+  <br></br>
 * Paizaを始める
   * Pythonの基本言語をおさらい
   * 包括表記までを理解
@@ -75,9 +75,7 @@ https://qiita.com/Qiita/items/c686397e4a0f4f11683d
         * Webページの製作に着手
         * 製作完了
         * [Webページ](https://tsora1216.github.io/Microsoft-Learn-Student-Ambassadors/)公開
-
-https://tsora1216.github.io/Microsoft-Learn-Student-Ambassadors/
-
+        ![Alt text](image-3.png)
 
 ## 2023/04/17～2023/04/23の活動
 * 研究
