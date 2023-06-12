@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tsora1216/Intelligent_Information_System_Lab_research.git"
+    "url": "git+https://github.com/Tsora1216/Intelligent_Information_System_Lab.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Tsora1216/Intelligent_Information_System_Lab_research/issues"
+    "url": "https://github.com/Tsora1216/Intelligent_Information_System_Lab/issues"
   },
-  "homepage": "https://github.com/Tsora1216/Intelligent_Information_System_Lab_research#readme",
+  "homepage": "https://github.com/Tsora1216/Intelligent_Information_System_Lab#readme",
   "devDependencies": {
     "honkit": "^3.6.20"
   },
