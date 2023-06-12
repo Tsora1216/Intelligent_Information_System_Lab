@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/1ft-seabass/honkit-base.git"
+    "url": "git+https://github.com/Tsora1216/Intelligent_Information_System_Lab_research.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/1ft-seabass/honkit-base/issues"
+    "url": "https://github.com/Tsora1216/Intelligent_Information_System_Lab_research/issues"
   },
-  "homepage": "https://github.com/1ft-seabass/honkit-base#readme",
+  "homepage": "https://github.com/Tsora1216/Intelligent_Information_System_Lab_research#readme",
   "devDependencies": {
     "honkit": "^3.6.20"
   },
