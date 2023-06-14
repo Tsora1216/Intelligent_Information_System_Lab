@@ -1,0 +1,931 @@
+
+<!DOCTYPE HTML>
+<html lang="ja" >
+    <head>
+        <meta charset="UTF-8">
+        <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# article: https://ogp.me/ns/article#"></head>
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="02_paper_03.html">
+        <meta property="og:image" content="https://i.gyazo.com/7f287b1dd7b12f6e97537c8112fcb13c.png">
+        <meta property="og:title" content="[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 実験03（強化学習知識有りのSAP-net）">
+        <meta property="og:description" content="知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避">
+        <meta property="og:locale" content="ja">
+        <title>[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 実験03（強化学習知識有りのSAP-net）</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避">
+        <meta name="generator" content="HonKit 3.7.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="02_paper_04.md" />
+    
+    
+    <link rel="prev" href="02_paper_02.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="検索ワードを入力" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    README
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="01_activity.html">
+            
+                <a href="01_activity.html">
+            
+                    
+                    研究室での活動記録
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="01_activity_04.html">
+            
+                <a href="01_activity_04.html">
+            
+                    
+                    ４月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="01_activity_05.html">
+            
+                <a href="01_activity_05.html">
+            
+                    
+                    ５月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="01_activity_06.md">
+            
+                <span>
+            
+                    
+                    ６月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="01_activity_07.md">
+            
+                <span>
+            
+                    
+                    ７月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="01_activity_08.md">
+            
+                <span>
+            
+                    
+                    ８月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="01_activity_09.md">
+            
+                <span>
+            
+                    
+                    ９月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="01_activity_10.md">
+            
+                <span>
+            
+                    
+                    １０月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="01_activity_11.md">
+            
+                <span>
+            
+                    
+                    １１月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="01_activity_12.md">
+            
+                <span>
+            
+                    
+                    １２月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="01_activity_01.md">
+            
+                <span>
+            
+                    
+                    １月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="01_activity_02.md">
+            
+                <span>
+            
+                    
+                    ２月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="01_activity_03.md">
+            
+                <span>
+            
+                    
+                    ３月の活動
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="02_paper.html">
+            
+                <a href="02_paper.html">
+            
+                    
+                    研究・論文
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="02_paper_01.html">
+            
+                <a href="02_paper_01.html">
+            
+                    
+                    実験01（強化学習知識無しのSAP-netTest）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="02_paper_02.html">
+            
+                <a href="02_paper_02.html">
+            
+                    
+                    実験02（強化学習知識有りのSAP-netTest）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3" data-path="02_paper_03.html">
+            
+                <a href="02_paper_03.html">
+            
+                    
+                    実験03（強化学習知識有りのSAP-net）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="02_paper_04.md">
+            
+                <span>
+            
+                    
+                    実験04
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            HonKitで公開 
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >実験03（強化学習知識有りのSAP-net）</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>この実験は、選択的転移強化学習において転移先の強化学習済み知識が存在する状態を想定した実験である。</p>
+<p>目的は、転移先が用意されればすぐに転移できる状態のSAP-netを準備することである。</p>
+<h1 id="データの用意"><a name="データの用意" class="plugin-anchor" href="#データの用意"><i class="fa fa-link" aria-hidden="true"></i></a>データの用意</h1>
+<p>前回の実験で用意したデータを取得しデータフレームに格納する</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">SQL_GetData</span>():</span>
+    conn = sqlite3.connect(<span class="hljs-string">&apos;database.sqlite&apos;</span>)
+    cursor = conn.cursor()
+
+    <span class="hljs-comment"># データを取得してDataFrameに格納</span>
+    cursor.execute(<span class="hljs-string">&quot;SELECT * FROM knowledge&quot;</span>)
+    rows = cursor.fetchall()
+    columns = [description[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> description <span class="hljs-keyword">in</span> cursor.description]
+    df = pd.DataFrame(rows, columns=columns)
+
+    conn.close()
+
+    <span class="hljs-keyword">return</span> df
+
+<span class="hljs-comment"># データの取得と表示</span>
+dataframe = SQL_GetData()
+<span class="hljs-built_in">print</span>(dataframe)
+</code></pre>
+<p><img src="https://gyazo.com/fdefc3fe90b2c6a832b740f609a287b1.png" alt></p>
+<p>次に、idとdescriptionを結合したid_description文字列を使用して、クロス表を作成し、これを活性値テーブルとする。
+また、クロス表は同値の場合1を表すが、活性値が1を超えたときその知識を選択するフラグを後に実装予定であるため、ここでは同値をNAとして扱う。</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+<span class="hljs-comment"># idとdescriptionを結合した文字列を作成</span>
+df[<span class="hljs-string">&apos;id_description&apos;</span>] = df[<span class="hljs-string">&apos;id&apos;</span>].astype(<span class="hljs-built_in">str</span>) + <span class="hljs-string">&apos;_&apos;</span> + df[<span class="hljs-string">&apos;description&apos;</span>]
+
+<span class="hljs-comment"># クロス表を作成</span>
+cross_table = pd.crosstab(df[<span class="hljs-string">&apos;id_description&apos;</span>], df[<span class="hljs-string">&apos;id_description&apos;</span>])
+cross_table = cross_table.replace(<span class="hljs-number">1</span>, np.nan)
+
+<span class="hljs-comment"># 新しいデータフレームを表示</span>
+<span class="hljs-built_in">print</span>(cross_table)
+</code></pre>
+<p><img src="https://gyazo.com/054b55dc64dcfd55c1a93cfba54b70cb.png" alt></p>
+<p>次にクロス表に活性値を保存して計算するプログラムを追加する。</p>
+<p>それぞれの各知識は角度と距離を持っている。
+それらの角度と距離を一つのベクトルとみなし、それぞれのベクトルの差を産出することで、活性値とする。
+ベクトルの差の求め方には下記のようなものがある。</p>
+<ol>
+<li><p>ユークリッド距離（Euclidean Distance）は、二つのベクトル間の直線距離を計算する手法である。具体的には、各次元の差の二乗を足し合わせ、その平方根を取ることでユークリッド距離が求められる。ユークリッド距離は、ベクトル間の一般的な距離尺度として幅広く利用されている。</p>
+</li>
+<li><p>マンハッタン距離（Manhattan Distance）は、二つのベクトル間の各次元の差の絶対値の和を計算する手法である。この手法では、各次元ごとの移動量の合計を表現するため、直線距離ではなく実際の移動距離を反映します。マンハッタン距離は、位置情報や経路計画など、実際の移動に関連する問題に適用されることがある。</p>
+</li>
+<li><p>コサイン類似度（Cosine Similarity）は、ベクトル間の角度を計算し、類似性を評価する手法である。ベクトルの向きによる差異を考慮し、ベクトルの大きさに依存しないため、文書分類や類似度計算などの応用でよく利用される。コサイン類似度は、ベクトルの内積と各ベクトルの大きさの積の比率を計算することで求められます。</p>
+</li>
+<li><p>マハラノビス距離（Mahalanobis Distance）は、二つのベクトル間の異なる分散を考慮した距離を計算する手法である。この手法では、ベクトル間の共分散行列の逆行列を使用して距離を計算し、分散の異なるデータに対してより正確な距離を得ることができます。マハラノビス距離は、異常検知やクラスタリングなどの分野で利用されることがある。</p>
+</li>
+</ol>
+<p>この中でも今回は、ユークリッド距離を活性値の算出に採用する。</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment">#ベクトルとして角度と距離を使用するため、データを準備</span>
+vectors = df[[<span class="hljs-string">&apos;angle&apos;</span>, <span class="hljs-string">&apos;distance&apos;</span>]]
+
+<span class="hljs-comment">#ベクトル間のユークリッド距離を計算</span>
+distances = np.linalg.norm(vectors.values[:, np.newaxis] - vectors.values, axis=<span class="hljs-number">2</span>)
+
+<span class="hljs-comment">#クロス表に距離を格納</span>
+cross_table = pd.DataFrame(distances, index=df[<span class="hljs-string">&apos;id_description&apos;</span>], columns=df[<span class="hljs-string">&apos;id_description&apos;</span>])
+cross_table = cross_table.replace(<span class="hljs-number">0</span>, np.nan)
+
+<span class="hljs-comment">#新しいデータフレームを表示</span>
+<span class="hljs-built_in">print</span>(cross_table)
+</code></pre>
+<p><img src="https://gyazo.com/b4918f0ccc2ea2732bce7407cb7eb515.png" alt></p>
+<p>この値を０～１にスケーリングし、活性化の値に使用する。
+また、具体的なスケーリング手法としては、最大値を用いて簡易的に算出している。
+ここの正規化については後ほどしっかりと教授と議論して話を進めたい。</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># ユークリッド距離を評価する指標を計算する関数</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">evaluate_distance</span>(<span class="hljs-params">distance</span>):</span>
+    max_distance = np.nanmax(cross_table.values)  <span class="hljs-comment"># ユークリッド距離の最大値（NaNを除く）</span>
+    scaled_distance = distance / max_distance  <span class="hljs-comment"># ユークリッド距離を最大値でスケーリング</span>
+    evaluation = <span class="hljs-number">1</span> - scaled_distance  <span class="hljs-comment"># 1からスケーリングされた距離を引く</span>
+    <span class="hljs-keyword">return</span> evaluation
+
+<span class="hljs-comment"># ユークリッド距離の評価指標を計算し、再度DataFrameに格納</span>
+evaluated_values = cross_table.applymap(evaluate_distance)
+df = evaluated_values.copy()
+
+<span class="hljs-comment"># 再度dfを表示</span>
+<span class="hljs-built_in">print</span>(df)
+</code></pre>
+<p><img src="https://gyazo.com/55e89133acb9bc8c14764fb3f796f39b.png" alt></p>
+<p>また、何度も加算され活性化された値を採用したいため、さらにスケーリング後の値を1/10にしている。</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># ユークリッド距離を評価する指標を計算する関数</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">evaluate_distance</span>(<span class="hljs-params">distance</span>):</span>
+    max_distance = np.nanmax(cross_table.values)  <span class="hljs-comment"># ユークリッド距離の最大値（NaNを除く）</span>
+    scaled_distance = distance / max_distance  <span class="hljs-comment"># ユークリッド距離を最大値でスケーリング</span>
+    evaluation = <span class="hljs-number">1</span> - scaled_distance  <span class="hljs-comment"># 1からスケーリングされた距離を引く</span>
+    <span class="hljs-keyword">return</span> evaluation
+
+<span class="hljs-comment"># ユークリッド距離の評価指標を計算し、再度DataFrameに格納</span>
+evaluated_values = cross_table.applymap(evaluate_distance)
+activation_table = evaluated_values.copy()
+
+<span class="hljs-comment"># 評価指標を1/10にスケーリング</span>
+activation_table_div10 = activation_table / <span class="hljs-number">10</span>
+activation_table_min1 = <span class="hljs-number">1</span>-activation_table
+
+
+<span class="hljs-comment"># 再度activation_tableを表示</span>
+<span class="hljs-built_in">print</span>(activation_table_div10)
+</code></pre>
+<p><img src="https://gyazo.com/f5aed2bf29bd26ef09e1d367fe289b79.png" alt></p>
+<p>結果として類似度はヒートマップやネットワークで表すと下記の通り。</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mpl
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> japanize_matplotlib
+
+
+plt.figure()
+plt.title(<span class="hljs-string">&quot;既存知識の類似度ヒートマップ&quot;</span>)
+sns.heatmap(activation_table_div10,cmap=<span class="hljs-string">&quot;winter&quot;</span>)
+plt.savefig(Heatmap_path)
+plot_points()
+</code></pre>
+<p><img src="../020_SAPnet-Sora_v3/Output_20230614164016/heatmap.png" alt></p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> networkx <span class="hljs-keyword">as</span> nx
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> japanize_matplotlib
+
+G = nx.from_pandas_adjacency(activation_table_min1, create_using=nx.Graph)
+
+<span class="hljs-comment"># グラフの描画</span>
+pos = nx.circular_layout(G)  <span class="hljs-comment"># レイアウトアルゴリズムをcircular_layoutに変更</span>
+weights = nx.get_edge_attributes(G, <span class="hljs-string">&apos;weight&apos;</span>)
+
+<span class="hljs-comment"># エッジの太さを制限</span>
+max_weight = <span class="hljs-built_in">max</span>(weights.values())
+edge_widths = [(<span class="hljs-number">6</span> * (<span class="hljs-number">1</span> - weights[edge])) ** <span class="hljs-number">2</span> <span class="hljs-keyword">for</span> edge <span class="hljs-keyword">in</span> G.edges()]
+<span class="hljs-comment"># エッジの太さの最大値を制限</span>
+max_edge_width = <span class="hljs-number">3.0</span>
+edge_widths = [<span class="hljs-built_in">min</span>(width, max_edge_width) <span class="hljs-keyword">for</span> width <span class="hljs-keyword">in</span> edge_widths]
+
+<span class="hljs-comment"># ノードの太さを制限</span>
+node_sizes = [<span class="hljs-number">50</span> + <span class="hljs-number">150</span> * G.degree(node) <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> G.nodes()]
+<span class="hljs-comment"># ノードのサイズの最大値を制限</span>
+max_node_size = <span class="hljs-number">1000</span>
+node_sizes = [<span class="hljs-built_in">min</span>(size, max_node_size) <span class="hljs-keyword">for</span> size <span class="hljs-keyword">in</span> node_sizes]
+
+<span class="hljs-comment"># グラフを描画</span>
+japanize_matplotlib.japanize()
+<span class="hljs-comment"># 一部のエッジのみ描画</span>
+edges_to_draw = [(u, v) <span class="hljs-keyword">for</span> (u, v) <span class="hljs-keyword">in</span> G.edges <span class="hljs-keyword">if</span> weights[(u, v)] &gt; <span class="hljs-number">0.5</span>]
+nx.draw_networkx_nodes(G, pos, node_color=<span class="hljs-string">&apos;lightblue&apos;</span>, node_size=node_sizes)
+nx.draw_networkx_edges(G, pos, edgelist=edges_to_draw, width=edge_widths, edge_color=<span class="hljs-string">&apos;black&apos;</span>)
+nx.draw_networkx_labels(G, pos, font_family=<span class="hljs-string">&apos;IPAexGothic&apos;</span>, font_color=<span class="hljs-string">&apos;black&apos;</span>, font_size=<span class="hljs-number">10</span>)
+plt.title(<span class="hljs-string">&quot;既存知識の類似度ネットワーク&quot;</span>)
+plt.axis(<span class="hljs-string">&apos;off&apos;</span>)
+
+<span class="hljs-comment"># グラフを出力</span>
+plt.savefig(Network_path)
+plt.show()  <span class="hljs-comment"># グラフを表示するための追加行</span>
+</code></pre>
+<p><img src="../020_SAPnet-Sora_v3/Output_20230614164016/network.png" alt></p>
+<p>次に、SAP-netに障害物の場所を受け付けるプログラムの作成</p>
+<pre><code class="lang-Python"><span class="hljs-comment"># 障害物レコードを追加</span>
+new_id = <span class="hljs-built_in">len</span>(df) + <span class="hljs-number">1</span>
+new_activation = <span class="hljs-number">0.0</span>
+new_description = <span class="hljs-string">&apos;障害物&apos;</span>
+new_angle = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&apos;角度を入力してください: &apos;</span>))
+new_distance = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&apos;距離を入力してください: &apos;</span>))
+
+new_data = pd.DataFrame({
+    <span class="hljs-string">&apos;id&apos;</span>: [new_id],
+    <span class="hljs-string">&apos;activation&apos;</span>: [new_activation],
+    <span class="hljs-string">&apos;description&apos;</span>: [new_description],
+    <span class="hljs-string">&apos;angle&apos;</span>: [new_angle],
+    <span class="hljs-string">&apos;distance&apos;</span>: [new_distance]
+})
+
+input_df = pd.concat([df, new_data], ignore_index=<span class="hljs-literal">True</span>)
+
+<span class="hljs-built_in">print</span>(input_df)
+</code></pre>
+<p><img src="https://gyazo.com/41ad7ccec978b3c4cc399f8cf207a553.png" alt></p>
+<p>また、プログラムを繰り返す際に、SQL_InserDataが複数回繰り返されると、永遠に既定のデータが追加されてしまうバグを修正しました。
+下記の修正により、既にデータベースが存在しSetUpが済んでいる場合、「Database already exists. Exiting setup「」と表示しfunctionを終了させます。。</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">SQL_SetUp</span>():</span>
+    conn = sqlite3.connect(<span class="hljs-string">&apos;database.sqlite&apos;</span>)
+    cursor = conn.cursor()
+
+    <span class="hljs-comment"># データベースファイルが存在する場合は処理を終了</span>
+    cursor.execute(<span class="hljs-string">&quot;SELECT name FROM sqlite_master WHERE type=&apos;table&apos;&quot;</span>)
+    existing_tables = cursor.fetchall()
+    <span class="hljs-keyword">if</span> existing_tables:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Database already exists. Exiting setup.&quot;</span>)
+        conn.close()
+        <span class="hljs-keyword">return</span>
+
+    <span class="hljs-comment"># テーブルを作成</span>
+    cursor.execute(<span class="hljs-string">&apos;&apos;&apos;
+        CREATE TABLE knowledge (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            angle FLOAT,
+            distance FLOAT,
+            activation FLOAT DEFAULT 0,
+            description TEXT
+        )
+    &apos;&apos;&apos;</span>)
+
+    data = [
+        (<span class="hljs-string">&quot;直進&quot;</span>, <span class="hljs-number">320</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>),<span class="hljs-comment">#１番の知識</span>
+        (<span class="hljs-string">&quot;左寄りの直進&quot;</span>, <span class="hljs-number">340</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>),<span class="hljs-comment">#２番の知識</span>
+        (<span class="hljs-string">&quot;右寄りの直進&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>),<span class="hljs-comment">#１番の知識</span>
+        (<span class="hljs-string">&quot;右寄りの直進&quot;</span>, <span class="hljs-number">20</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>),<span class="hljs-comment">#１番の知識</span>
+        (<span class="hljs-string">&quot;直進&quot;</span>, <span class="hljs-number">40</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>)<span class="hljs-comment">#１番の知識</span>
+    ]
+
+    conn = sqlite3.connect(<span class="hljs-string">&apos;database.sqlite&apos;</span>)
+    cursor = conn.cursor()
+
+    <span class="hljs-comment"># データを挿入</span>
+    cursor.executemany(<span class="hljs-string">&quot;INSERT INTO knowledge (description, angle, distance, activation) VALUES (?, ?, ?, ?)&quot;</span>, data)
+
+
+    conn.commit()
+    conn.close()
+
+<span class="hljs-comment"># データベースのセットアップ</span>
+SQL_SetUp()
+</code></pre>
+<p>また、上記のテーブルから、障害物との類似度を算出し活性値の取り出しに成功した。</p>
+<pre><code class="lang-python"><span class="hljs-built_in">print</span>(activation_table_div10)
+<span class="hljs-built_in">print</span>()
+activity_value_temp = activation_table_div10.loc[<span class="hljs-string">&apos;1_直進&apos;</span>, <span class="hljs-string">&apos;2_左寄りの直進&apos;</span>]
+
+<span class="hljs-comment"># 結果を表示</span>
+<span class="hljs-built_in">print</span>(subset)
+</code></pre>
+<p><img src="https://gyazo.com/efa01ddb6a7408b5dd7101cfa31995b5.png" alt></p>
+<p>番号が対応しているかいま一度確認した</p>
+<p><img src="https://gyazo.com/ff0ed2514dec7fcd49bb0a1a5754953c.png" alt></p>
+<p>最後は一気にSAP-netを作成した。
+（学会の論文投稿が迫っているため説明を省く）</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image  <span class="hljs-comment"># Import the PIL module</span>
+<span class="hljs-keyword">import</span> io
+<span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> HTML
+<span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> display
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image  <span class="hljs-comment"># Import the PIL module</span>
+<span class="hljs-keyword">import</span> glob  <span class="hljs-comment"># Import the glob module</span>
+<span class="hljs-keyword">import</span> japanize_matplotlib
+
+
+
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(activation_table_div10.columns)-<span class="hljs-number">1</span>):
+    <span class="hljs-built_in">print</span>(activation_table_div10.columns[i], activation_table_div10.columns[-<span class="hljs-number">1</span>])
+    activity_value_temp = activation_table_div10.loc[activation_table_div10.columns[i], activation_table_div10.columns[-<span class="hljs-number">1</span>]]
+    input_df2.loc[input_df2[<span class="hljs-string">&apos;id_description&apos;</span>] == activation_table_div10.columns[i], <span class="hljs-string">&apos;activation&apos;</span>] += activity_value_temp
+
+<span class="hljs-comment"># 画像を格納するリスト</span>
+images = []
+
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> (input_df2[<span class="hljs-string">&apos;activation&apos;</span>] &gt; <span class="hljs-number">1</span>).<span class="hljs-built_in">any</span>():
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(activation_table_div10.columns)):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(activation_table_div10.columns)):
+            <span class="hljs-keyword">if</span> i==j:
+                <span class="hljs-keyword">continue</span>
+            activity_value_temp = activation_table_div10.loc[activation_table_div10.columns[i], activation_table_div10.columns[j]]
+            input_df2.loc[input_df2[<span class="hljs-string">&apos;id_description&apos;</span>] == activation_table_div10.columns[i], <span class="hljs-string">&apos;activation&apos;</span>] += activity_value_temp
+            <span class="hljs-built_in">print</span>(input_df2)
+
+            plt.barh(input_df2[<span class="hljs-string">&apos;id_description&apos;</span>], input_df2[<span class="hljs-string">&apos;activation&apos;</span>])
+
+            <span class="hljs-comment"># グラフのタイトルと軸ラベルの設定</span>
+            plt.title(<span class="hljs-string">&apos;Activation by ID Description&apos;</span>)
+            plt.xlabel(<span class="hljs-string">&apos;Activation&apos;</span>)
+            plt.ylabel(<span class="hljs-string">&apos;ID Description&apos;</span>)
+
+            <span class="hljs-comment"># 画像の保存と追加</span>
+            buf = io.BytesIO()
+            plt.savefig(buf, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;png&apos;</span>)
+            buf.seek(<span class="hljs-number">0</span>)
+            im = Image.<span class="hljs-built_in">open</span>(buf)
+            images.append(im)
+            plt.clf()  <span class="hljs-comment"># Clear the figure for the next iteration</span>
+
+
+<span class="hljs-comment"># GIF画像の保存</span>
+images[<span class="hljs-number">0</span>].save(GIF_path_100, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;GIF&apos;</span>, append_images=images[<span class="hljs-number">1</span>:], save_all=<span class="hljs-literal">True</span>, duration=<span class="hljs-number">100</span>, loop=<span class="hljs-number">0</span>)
+images[<span class="hljs-number">0</span>].save(GIF_path_1000, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;GIF&apos;</span>, append_images=images[<span class="hljs-number">1</span>:], save_all=<span class="hljs-literal">True</span>, duration=<span class="hljs-number">1000</span>, loop=<span class="hljs-number">0</span>)
+</code></pre>
+<p><img src="https://gyazo.com/1df7691614c29d2ec6971538aa9064b1.png" alt></p>
+<p>さらに最後のループをすべて画像に保存しているため、Gif画像を表示できる。
+選択される様子は以下の通り。</p>
+<pre><code class="lang-Python"><span class="hljs-comment"># GIF画像の表示</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(GIF_path_100, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
+    b64 = base64.b64encode(f.read()).decode(<span class="hljs-string">&quot;ascii&quot;</span>)
+
+display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gif;base64,<span class="hljs-subst">{b64}</span>&quot; /&gt;&apos;</span>))
+</code></pre>
+<p><img src="image/output_100_v1.gif" alt></p>
+<p>しかし、図が障害物の活性値を表示するため、可視化性能が下がっていることがわかる。
+そのため、プロットをとる、部分をスライスして実行</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image  <span class="hljs-comment"># Import the PIL module</span>
+<span class="hljs-keyword">import</span> io
+<span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> HTML
+<span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> display
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image  <span class="hljs-comment"># Import the PIL module</span>
+<span class="hljs-keyword">import</span> glob  <span class="hljs-comment"># Import the glob module</span>
+<span class="hljs-keyword">import</span> japanize_matplotlib
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(activation_table_div10.columns)-<span class="hljs-number">1</span>):
+    <span class="hljs-built_in">print</span>(activation_table_div10.columns[i], activation_table_div10.columns[-<span class="hljs-number">1</span>])
+    activity_value_temp = activation_table_div10.loc[activation_table_div10.columns[i], activation_table_div10.columns[-<span class="hljs-number">1</span>]]
+    input_df2.loc[input_df2[<span class="hljs-string">&apos;id_description&apos;</span>] == activation_table_div10.columns[i], <span class="hljs-string">&apos;activation&apos;</span>] += activity_value_temp
+
+<span class="hljs-comment"># 画像を格納するリスト</span>
+images = []
+
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> (input_df2[<span class="hljs-string">&apos;activation&apos;</span>] &gt; <span class="hljs-number">1</span>).<span class="hljs-built_in">any</span>():
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(activation_table_div10.columns)):
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(activation_table_div10.columns)):
+            <span class="hljs-keyword">if</span> i==j:
+                <span class="hljs-keyword">continue</span>
+            activity_value_temp = activation_table_div10.loc[activation_table_div10.columns[i], activation_table_div10.columns[j]]
+            input_df2.loc[input_df2[<span class="hljs-string">&apos;id_description&apos;</span>] == activation_table_div10.columns[i], <span class="hljs-string">&apos;activation&apos;</span>] += activity_value_temp
+            <span class="hljs-built_in">print</span>(input_df2)
+
+            plt.barh(input_df2[<span class="hljs-string">&apos;id_description&apos;</span>][<span class="hljs-number">0</span>:<span class="hljs-number">5</span>], input_df2[<span class="hljs-string">&apos;activation&apos;</span>][<span class="hljs-number">0</span>:<span class="hljs-number">5</span>])
+
+            <span class="hljs-comment"># グラフのタイトルと軸ラベルの設定</span>
+            plt.title(<span class="hljs-string">&apos;Activation by ID Description&apos;</span>)
+            plt.xlabel(<span class="hljs-string">&apos;Activation&apos;</span>)
+            plt.ylabel(<span class="hljs-string">&apos;ID Description&apos;</span>)
+
+            <span class="hljs-comment"># 画像の保存と追加</span>
+            buf = io.BytesIO()
+            plt.savefig(buf, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;png&apos;</span>)
+            buf.seek(<span class="hljs-number">0</span>)
+            im = Image.<span class="hljs-built_in">open</span>(buf)
+            images.append(im)
+            plt.clf()  <span class="hljs-comment"># Clear the figure for the next iteration</span>
+
+
+<span class="hljs-comment"># GIF画像の保存</span>
+images[<span class="hljs-number">0</span>].save(GIF_path_100, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;GIF&apos;</span>, append_images=images[<span class="hljs-number">1</span>:], save_all=<span class="hljs-literal">True</span>, duration=<span class="hljs-number">100</span>, loop=<span class="hljs-number">0</span>)
+images[<span class="hljs-number">0</span>].save(GIF_path_1000, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;GIF&apos;</span>, append_images=images[<span class="hljs-number">1</span>:], save_all=<span class="hljs-literal">True</span>, duration=<span class="hljs-number">1000</span>, loop=<span class="hljs-number">0</span>)
+</code></pre>
+<p>再度スライス後のデータを用いてGif画像を表示する。
+選択される様子は以下の通り。</p>
+<pre><code class="lang-Python"><span class="hljs-comment"># GIF画像の表示</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(GIF_path_100, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
+    b64 = base64.b64encode(f.read()).decode(<span class="hljs-string">&quot;ascii&quot;</span>)
+
+display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gif;base64,<span class="hljs-subst">{b64}</span>&quot; /&gt;&apos;</span>))
+</code></pre>
+<p><img src="image/output_100_v2.gif" alt></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="02_paper_02.html" class="navigation navigation-prev " aria-label="Previous page: 実験02（強化学習知識有りのSAP-netTest）">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="02_paper_04.md" class="navigation navigation-next " aria-label="Next page: 実験04">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"実験03（強化学習知識有りのSAP-net）","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.3.3","depth":2,"next":{"title":"実験04","level":"1.3.4","depth":2,"path":"02_paper_04.md","ref":"02_paper_04.md","articles":[]},"previous":{"title":"実験02（強化学習知識有りのSAP-netTest）","level":"1.3.2","depth":2,"path":"02_paper_02.md","ref":"02_paper_02.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_03.md","mtime":"2023-06-14T12:53:37.652Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-14T12:54:06.695Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-hide-published-with/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/gumshoe.polyfills.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>

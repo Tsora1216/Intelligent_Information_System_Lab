@@ -7,10 +7,10 @@
         <meta property="og:type" content="article">
         <meta property="og:url" content="02_paper_02.html">
         <meta property="og:image" content="https://i.gyazo.com/7f287b1dd7b12f6e97537c8112fcb13c.png">
-        <meta property="og:title" content="[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 実験02">
+        <meta property="og:title" content="[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 実験02（強化学習知識有りのSAP-netTest）">
         <meta property="og:description" content="知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避">
         <meta property="og:locale" content="ja">
-        <title>[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 実験02</title>
+        <title>[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 実験02（強化学習知識有りのSAP-netTest）</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避">
         <meta name="generator" content="HonKit 3.7.4">
@@ -75,7 +75,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="02_paper_03.md" />
+    <link rel="next" href="02_paper_03.html" />
     
     
     <link rel="prev" href="02_paper_01.html" />
@@ -314,7 +314,7 @@
                 <a href="02_paper_01.html">
             
                     
-                    実験01
+                    実験01（強化学習知識無しのSAP-netTest）
             
                 </a>
             
@@ -327,7 +327,7 @@
                 <a href="02_paper_02.html">
             
                     
-                    実験02
+                    実験02（強化学習知識有りのSAP-netTest）
             
                 </a>
             
@@ -335,12 +335,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3" data-path="02_paper_03.md">
+        <li class="chapter " data-level="1.3.3" data-path="02_paper_03.html">
             
-                <span>
+                <a href="02_paper_03.html">
             
                     
-                    実験03
+                    実験03（強化学習知識有りのSAP-net）
             
                 </a>
             
@@ -396,7 +396,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >実験02</a>
+        <a href="." >実験02（強化学習知識有りのSAP-netTest）</a>
     </h1>
 </div>
 
@@ -411,7 +411,9 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="二次元マップをテスト"><a name="二次元マップをテスト" class="plugin-anchor" href="#二次元マップをテスト"><i class="fa fa-link" aria-hidden="true"></i></a>二次元マップをテスト</h1>
+                                <p>この実験は、選択的転移強化学習において転移先の強化学習済み知識が存在する状態を想定した実験である。</p>
+<p>目的は、転移先が用意されればすぐに転移できる状態のSAP-netを準備することであるが、この実験ではデータの保存と可視化に焦点を当て準備を行う。</p>
+<h1 id="二次元マップをテスト"><a name="二次元マップをテスト" class="plugin-anchor" href="#二次元マップをテスト"><i class="fa fa-link" aria-hidden="true"></i></a>二次元マップをテスト</h1>
 <p>二次元マップで中心にエージェントを仮想的に配置した<br>
 10個のランダムな距離と中心からの角度を生成し、それらを点P群とした<br>
 それらの点P群は距離は0～500cm(5m)で、角度は0～360°の値をとっている<br>
@@ -530,7 +532,7 @@ plot_points_with_lines(points)
 points = generate_points()
 plot_points_with_lines(points)
 </code></pre>
-<p><img src="image-4.png" alt="Alt text"></p>
+<p><img src="https://gyazo.com/37d9f32422017b225f6881e02d92867d.png" alt="Alt text"></p>
 <p>現在の状態ではプロット場所が右を見てしまっているため、すべてを+90°した値でプロットするようにした。<br>
 これによりプロットが正面を向くようになった。</p>
 <pre><code class="lang-Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -574,7 +576,7 @@ plot_points_with_lines(points)
 points = generate_points()
 plot_points_with_lines(points)
 </code></pre>
-<p><img src="image-5.png" alt="Alt text"></p>
+<p><img src="https://gyazo.com/feafc09b5946ba6e14692d4930e8349f.png" alt="Alt text"></p>
 <h1 id="sqlをテスト"><a name="sqlをテスト" class="plugin-anchor" href="#sqlをテスト"><i class="fa fa-link" aria-hidden="true"></i></a>SQLをテスト</h1>
 <p>情報を保存する必要があるため、SQLのテストを開始した。</p>
 <p>SQLiteを使用して、データベースによる情報の保持テストを開始した。<br>
@@ -602,7 +604,7 @@ c.execute(<span class="hljs-string">&apos;&apos;&apos;CREATE TABLE IF NOT EXISTS
 <span class="hljs-comment"># データベース接続の終了</span>
 conn.close()
 </code></pre>
-<p><img src="image-6.png" alt="Alt text"></p>
+<p><img src="https://gyazo.com/ea235dfb326a81e9a957cc9e6ecb5729.png" alt="Alt text"></p>
 <p>さらに、環境に変化を加え、SQLで作成するテーブルは３つ作成するようにした<br>
 １つ目は、knowledgeテーブルである。このテーブルでは、選択的知識の各々の知識が持つ原点からの距離rや角度θを保持するものである。<br>
 ２つ目は、euclidean_distanceテーブルである。euclidean_distanceテーブルとは、知識間の活性化の値を保持するものであり、knowledgeテーブルに変更を加えた場合動作させる必要がある。<br>
@@ -643,7 +645,7 @@ conn.close()
 <span class="hljs-comment"># データベースのセットアップ</span>
 SQL_SetUp()
 </code></pre>
-<p><img src="image-7.png" alt="Alt text"></p>
+<p><img src="https://gyazo.com/f6397dd8c63b75b79b53d8f313280aea.png" alt="Alt text"></p>
 <h1 id="実データを想定してsqlを作成"><a name="実データを想定してsqlを作成" class="plugin-anchor" href="#実データを想定してsqlを作成"><i class="fa fa-link" aria-hidden="true"></i></a>実データを想定してSQLを作成</h1>
 <p>次に、SQLに情報を挿入する関数を作成していく。<br>
 初期状態に下記の情報を埋め込む際を想定している。<br>
@@ -1070,12 +1072,12 @@ plot_points()
 
             
                 
-                <a href="02_paper_01.html" class="navigation navigation-prev " aria-label="Previous page: 実験01">
+                <a href="02_paper_01.html" class="navigation navigation-prev " aria-label="Previous page: 実験01（強化学習知識無しのSAP-netTest）">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="02_paper_03.md" class="navigation navigation-next " aria-label="Next page: 実験03">
+                <a href="02_paper_03.html" class="navigation navigation-next " aria-label="Next page: 実験03（強化学習知識有りのSAP-net）">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1086,7 +1088,7 @@ plot_points()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"実験02","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.3.2","depth":2,"next":{"title":"実験03","level":"1.3.3","depth":2,"path":"02_paper_03.md","ref":"02_paper_03.md","articles":[]},"previous":{"title":"実験01","level":"1.3.1","depth":2,"path":"02_paper_01.md","ref":"02_paper_01.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_02.md","mtime":"2023-06-14T05:58:27.758Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-14T06:00:36.349Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"実験02（強化学習知識有りのSAP-netTest）","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.3.2","depth":2,"next":{"title":"実験03（強化学習知識有りのSAP-net）","level":"1.3.3","depth":2,"path":"02_paper_03.md","ref":"02_paper_03.md","articles":[]},"previous":{"title":"実験01（強化学習知識無しのSAP-netTest）","level":"1.3.1","depth":2,"path":"02_paper_01.md","ref":"02_paper_01.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_02.md","mtime":"2023-06-14T12:53:37.646Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-14T12:54:06.695Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
