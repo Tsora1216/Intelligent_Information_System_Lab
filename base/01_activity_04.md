@@ -29,13 +29,13 @@ slide: false
         * 画像認識をやってみる（とりちゃんと並走してOK）
         
 * Kaggle
-  ![](https://gyazo.com/1fc1faa423803705dab95947e6222db7)
+  ![](https://gyazo.com/1fc1faa423803705dab95947e6222db7.png)
   * 始める
   * コンペティションを眺める
   <br></br>
 * Signateを始める
 
-  ![Alt text](image-2.png)
+  ![Alt text](https://gyazo.com/95a8d0f4a54fb00d6ecef30e585940bb.png)
   * チュートリアル有のコンペティションに参加
   * 銀行の打ち出したイベントの効果を機械学習により数値化
   <br></br>
@@ -75,7 +75,7 @@ slide: false
         * Webページの製作に着手
         * 製作完了
         * [Webページ](https://tsora1216.github.io/Microsoft-Learn-Student-Ambassadors/)公開
-        ![Alt text](image-3.png)
+        ![Alt text](https://gyazo.com/c37cf368fafa580804518576fcb9987f.png)
 
 ## 2023/04/17～2023/04/23の活動
 * 研究

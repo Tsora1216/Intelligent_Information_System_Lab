@@ -4,6 +4,10 @@ tags: データサイエンティスト
 author: Tsora1216
 slide: false
 ---
+この実験は、選択的転移強化学習において転移先の強化学習済み知識が存在する状態を想定した実験である。
+
+目的は、転移先が用意されればすぐに転移できる状態のSAP-netを準備することであるが、この実験ではデータの保存と可視化に焦点を当て準備を行う。
+
 
 # 二次元マップをテスト
 二次元マップで中心にエージェントを仮想的に配置した<br>
@@ -130,7 +134,7 @@ def plot_points_with_lines(points):
 points = generate_points()
 plot_points_with_lines(points)
 ```
-![Alt text](image-4.png)
+![Alt text](https://gyazo.com/37d9f32422017b225f6881e02d92867d.png)
 
 現在の状態ではプロット場所が右を見てしまっているため、すべてを+90°した値でプロットするようにした。<br>
 これによりプロットが正面を向くようになった。
@@ -177,7 +181,7 @@ def plot_points_with_lines(points):
 points = generate_points()
 plot_points_with_lines(points)
 ```
-![Alt text](image-5.png)
+![Alt text](https://gyazo.com/feafc09b5946ba6e14692d4930e8349f.png)
 
 # SQLをテスト
 情報を保存する必要があるため、SQLのテストを開始した。
@@ -209,7 +213,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS activity_value
 # データベース接続の終了
 conn.close()
 ```
-![Alt text](image-6.png)
+![Alt text](https://gyazo.com/ea235dfb326a81e9a957cc9e6ecb5729.png)
 
 
 さらに、環境に変化を加え、SQLで作成するテーブルは３つ作成するようにした<br>
@@ -254,7 +258,7 @@ def SQL_SetUp():
 # データベースのセットアップ
 SQL_SetUp()
 ```
-![Alt text](image-7.png)
+![Alt text](https://gyazo.com/f6397dd8c63b75b79b53d8f313280aea.png)
 
 # 実データを想定してSQLを作成
 次に、SQLに情報を挿入する関数を作成していく。<br>
