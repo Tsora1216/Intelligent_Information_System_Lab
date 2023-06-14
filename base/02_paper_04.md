@@ -10,6 +10,7 @@ slide: false
 
 # データの用意
 まずデータの用意から前回に引き続き行っていく
+フォルダの作成を現在時刻から行い、それをフォルダパスとして生成している。
 ```Python
 import os
 import datetime
@@ -28,7 +29,10 @@ GIF_path_100 = folder_name + '/graph_100.gif'
 GIF_path_1000 = folder_name + '/graph_1000.gif'
 ```
 
-データベースの作成と同時にテーブルの作成を行っていく。
+次に、データベースの作成と同時にテーブルの作成を行っていく。
+データベース名はdatabase.sqlite、テーブル名はknowledgeである。
+knowledgeテーブルは、id,angle,distance,activation,descriptionを保持している。
+それぞれ、一意のIDと、角度、距離、活性値、説明である。
 ```Python
 import sqlite3
 
@@ -75,7 +79,7 @@ def SQL_SetUp():
 SQL_SetUp()
 ```
 
-データフレームにSQLの値を抽出する。
+SQLから値を抽出し、データフレームに格納している。
 ```Python
 import sqlite3
 import pandas as pd
@@ -98,8 +102,9 @@ def SQL_GetData():
 df = SQL_GetData()
 print(df)
 ```
+![](https://gyazo.com/914ce68ac7c93b29f8c51c6cdf45b267.png)
 
-障害物データの追加を行う。
+障害物データの追加を行う。SQLには、追加せず、dataframeにだけ追加することで後にSAPnetに対応しやすくしている
 ```Python
 # 新しいデータを追加
 new_id = len(df) + 1
@@ -122,8 +127,11 @@ input_df['id_description'] = input_df['id'].astype(str) + '_' + input_df['descri
 
 print(input_df)
 ```
+![](https://gyazo.com/89bdee55d7782db89e4c608eb3d271c7.png)
+
 # データ処理
-既知知識のネットワーク知識を可視化
+既知知識のを可視化するために、全網羅ネットワーク知識を可視化
+その際にWibotとの差を埋めるために、90度を加算することで、前方方向にあるように表現している。
 ```Python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -176,8 +184,9 @@ def plot_points():
 # データのプロット
 plot_points()
 ```
+![](https://gyazo.com/824b3f69e4db28f9597998be87b9bdf0.png)
 
-クロス表を作成する
+現在所持しているデータフレームのカラム名からクロス表を作成する。
 ```python
 import pandas as pd
 import numpy as np
@@ -190,8 +199,10 @@ cross_table = cross_table.replace(1, np.nan)
 # 新しいデータフレームを表示
 print(cross_table)
 ```
+![](https://gyazo.com/d87012da21493c1d8c7e084ce04fd0a2.png)
+
 # 計算処理
-クロス表にユークリッド距離を格納
+現在所持しているデータフレームの各知識がもつ角度や距離からユークリッド距離を計算する。
 ```python
 import pandas as pd
 import numpy as np
@@ -207,10 +218,10 @@ cross_table = pd.DataFrame(distances, index=input_df['id_description'], columns=
 
 # 新しいデータフレームを表示
 print(cross_table)
-
 ```
+![](https://gyazo.com/d61f55c4d874b63ed7f3556bd7000cc2.png)
 
-スケーリングをする
+計算した、ユークリッド距離の最大値を用いて、スケーリングを行い０～１の値に正規化を行う。
 ```python
 import numpy as np
 
@@ -228,7 +239,9 @@ activation_table = evaluated_values.copy()
 # 再度dfを表示
 print(activation_table)
 ```
-1/10にスケーリング
+![](https://gyazo.com/9f467b499e0c205f453309cfdef4a1da.png)
+
+スケーリングを行い０～１の値に正規化した値を活性化に用いるために、1/10に補正する。
 ```python
 import numpy as np
 
@@ -252,14 +265,19 @@ activation_table_min1 = 1-activation_table
 print(activation_table_div10)
 ```
 
-一応複製
+![](https://gyazo.com/9f467b499e0c205f453309cfdef4a1da.png)
+
+ここまで作成したデータフレームをテスト用に使用するため、複製した。
 ```python
 input_df2=input_df.copy()
 print(input_df)
 print(input_df2)
 ```
+![](https://gyazo.com/5ee82631eeaf6ad66203cd307198bc5b.png)
 
-拡散した値を計算し活性化させる
+活性化のために作成したデータフレームを検索データベースとして使用し、元のデータフレームに対応する活性値を足し算していく。
+後に忘却の値も実装する。
+さらに、データベースに保存する機能も実装する。
 ```python
 import sqlite3
 import pandas as pd
@@ -297,7 +315,7 @@ while not (input_df2['activation'] > 1).any():
             input_df2.loc[input_df2['id_description'] == activation_table_div10.columns[i], 'activation'] += activity_value_temp
             print(input_df2)
 
-            plt.barh(input_df2['id_description'][0:5], input_df2['activation'][0:5])
+            plt.barh(input_df2['id_description'][0:len(activation_table_div10.columns)-1], input_df2['activation'][0:len(activation_table_div10.columns)-1])
             
             # グラフのタイトルと軸ラベルの設定
             plt.title('Activation by ID Description')
@@ -317,9 +335,11 @@ while not (input_df2['activation'] > 1).any():
 images[0].save(GIF_path_100, format='GIF', append_images=images[1:], save_all=True, duration=100, loop=0)
 images[0].save(GIF_path_1000, format='GIF', append_images=images[1:], save_all=True, duration=1000, loop=0)
 ```
+![](https://gyazo.com/a101505b063f24ed312ce2de3c098413.png)
+
 
 # 可視化
-類似度ヒートマップを作成
+作成したデータフレームの値を用いて、ヒートマップと知識間関連図を表示
 ```python
 import seaborn as sns
 import pandas as pd
@@ -336,7 +356,11 @@ plt.savefig(Heatmap_path)
 plot_points()
 ```
 
-ネットワークグラフを作成する
+![](https://gyazo.com/a2ead611d09f0fa72f63e1160f390200.png)
+![](https://gyazo.com/450ab752992afc00e0d38a92bb1a2481.png)
+
+既存の知識の類似度を用いて、ネットワークグラフを作成する
+
 ```python
 import pandas as pd
 import networkx as nx
@@ -376,8 +400,10 @@ plt.axis('off')
 plt.savefig(Network_path)
 plt.show()  # グラフを表示するための追加行
 ```
-Gif画像を表示
+![](https://gyazo.com/0f227eb902fafc299ee966da88f9ba4e.png)
 
+
+正規化後に補正した値を用いて活性化を行っている様子を知識ごとに可視化している。
 ```python
 # GIF画像の表示
 with open(GIF_path_100, "rb") as f:
@@ -385,3 +411,17 @@ with open(GIF_path_100, "rb") as f:
     
 display(dd.HTML(f'<img src="data:image/gif;base64,{b64}" />'))
 ```
+![](./image/output_100_v3.gif)
+
+
+上記の一連のプログラムでは、以下のように時間がかかっている
+時間がかかっている項目を上から順に並べると以下の通りだ
+- 24.9秒 -> （可視化）既存知識の類似度プロット
+-  5.5秒 -> （入力）　文字列の入力
+-  1.1秒 -> （可視化）既存知識の類似度プロット
+-  0.9秒 -> （可視化）類似度ヒートマップ
+-  0.7秒 -> （可視化）データベースから情報を抽出
+-  0.5秒 -> （可視化）類似度ネットワーク
+-  0.0秒 -> （その他）計算・処理
+
+入力は人力のため、改善の余地が無いが、可視化の点に関しては削減が簡単であるため、次の実験では、可視化を無くし、最低限の時間でSAP-netを動作させられるように改善していく必要があると考える。

@@ -412,7 +412,8 @@
                                 <p>この実験は、選択的転移強化学習において転移先の強化学習済み知識が存在する状態を想定した実験である。</p>
 <p>目的は、転移先が用意されればすぐに転移できるSAP-netの作成を行うことである。</p>
 <h1 id="データの用意"><a name="データの用意" class="plugin-anchor" href="#データの用意"><i class="fa fa-link" aria-hidden="true"></i></a>データの用意</h1>
-<p>まずデータの用意から前回に引き続き行っていく</p>
+<p>まずデータの用意から前回に引き続き行っていく
+フォルダの作成を現在時刻から行い、それをフォルダパスとして生成している。</p>
 <pre><code class="lang-Python"><span class="hljs-keyword">import</span> os
 <span class="hljs-keyword">import</span> datetime
 <span class="hljs-comment"># Get current time</span>
@@ -429,7 +430,10 @@ Plotpoint_path = folder_name + <span class="hljs-string">&apos;/plotpoint.png&ap
 GIF_path_100 = folder_name + <span class="hljs-string">&apos;/graph_100.gif&apos;</span>
 GIF_path_1000 = folder_name + <span class="hljs-string">&apos;/graph_1000.gif&apos;</span>
 </code></pre>
-<p>データベースの作成と同時にテーブルの作成を行っていく。</p>
+<p>次に、データベースの作成と同時にテーブルの作成を行っていく。
+データベース名はdatabase.sqlite、テーブル名はknowledgeである。
+knowledgeテーブルは、id,angle,distance,activation,descriptionを保持している。
+それぞれ、一意のIDと、角度、距離、活性値、説明である。</p>
 <pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">SQL_SetUp</span>():</span>
@@ -474,7 +478,7 @@ GIF_path_1000 = folder_name + <span class="hljs-string">&apos;/graph_1000.gif&ap
 <span class="hljs-comment"># データベースのセットアップ</span>
 SQL_SetUp()
 </code></pre>
-<p>データフレームにSQLの値を抽出する。</p>
+<p>SQLから値を抽出し、データフレームに格納している。</p>
 <pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
 <span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
@@ -496,7 +500,8 @@ SQL_SetUp()
 df = SQL_GetData()
 <span class="hljs-built_in">print</span>(df)
 </code></pre>
-<p>障害物データの追加を行う。</p>
+<p><img src="https://gyazo.com/914ce68ac7c93b29f8c51c6cdf45b267.png" alt></p>
+<p>障害物データの追加を行う。SQLには、追加せず、dataframeにだけ追加することで後にSAPnetに対応しやすくしている</p>
 <pre><code class="lang-Python"><span class="hljs-comment"># 新しいデータを追加</span>
 new_id = <span class="hljs-built_in">len</span>(df) + <span class="hljs-number">1</span>
 new_activation = -<span class="hljs-number">1.0</span>
@@ -518,8 +523,10 @@ input_df[<span class="hljs-string">&apos;id_description&apos;</span>] = input_df
 
 <span class="hljs-built_in">print</span>(input_df)
 </code></pre>
+<p><img src="https://gyazo.com/89bdee55d7782db89e4c608eb3d271c7.png" alt></p>
 <h1 id="データ処理"><a name="データ処理" class="plugin-anchor" href="#データ処理"><i class="fa fa-link" aria-hidden="true"></i></a>データ処理</h1>
-<p>既知知識のネットワーク知識を可視化</p>
+<p>既知知識のを可視化するために、全網羅ネットワーク知識を可視化
+その際にWibotとの差を埋めるために、90度を加算することで、前方方向にあるように表現している。</p>
 <pre><code class="lang-Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 <span class="hljs-keyword">import</span> sqlite3
@@ -571,7 +578,8 @@ input_df[<span class="hljs-string">&apos;id_description&apos;</span>] = input_df
 <span class="hljs-comment"># データのプロット</span>
 plot_points()
 </code></pre>
-<p>クロス表を作成する</p>
+<p><img src="https://gyazo.com/824b3f69e4db28f9597998be87b9bdf0.png" alt></p>
+<p>現在所持しているデータフレームのカラム名からクロス表を作成する。</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
@@ -583,8 +591,9 @@ cross_table = cross_table.replace(<span class="hljs-number">1</span>, np.nan)
 <span class="hljs-comment"># 新しいデータフレームを表示</span>
 <span class="hljs-built_in">print</span>(cross_table)
 </code></pre>
+<p><img src="https://gyazo.com/d87012da21493c1d8c7e084ce04fd0a2.png" alt></p>
 <h1 id="計算処理"><a name="計算処理" class="plugin-anchor" href="#計算処理"><i class="fa fa-link" aria-hidden="true"></i></a>計算処理</h1>
-<p>クロス表にユークリッド距離を格納</p>
+<p>現在所持しているデータフレームの各知識がもつ角度や距離からユークリッド距離を計算する。</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
@@ -600,7 +609,8 @@ cross_table = pd.DataFrame(distances, index=input_df[<span class="hljs-string">&
 <span class="hljs-comment"># 新しいデータフレームを表示</span>
 <span class="hljs-built_in">print</span>(cross_table)
 </code></pre>
-<p>スケーリングをする</p>
+<p><img src="https://gyazo.com/d61f55c4d874b63ed7f3556bd7000cc2.png" alt></p>
+<p>計算した、ユークリッド距離の最大値を用いて、スケーリングを行い０～１の値に正規化を行う。</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
 <span class="hljs-comment"># ユークリッド距離を評価する指標を計算する関数</span>
@@ -617,7 +627,8 @@ activation_table = evaluated_values.copy()
 <span class="hljs-comment"># 再度dfを表示</span>
 <span class="hljs-built_in">print</span>(activation_table)
 </code></pre>
-<p>1/10にスケーリング</p>
+<p><img src="https://gyazo.com/9f467b499e0c205f453309cfdef4a1da.png" alt></p>
+<p>スケーリングを行い０～１の値に正規化した値を活性化に用いるために、1/10に補正する。</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
 <span class="hljs-comment"># ユークリッド距離を評価する指標を計算する関数</span>
@@ -639,12 +650,16 @@ activation_table_min1 = <span class="hljs-number">1</span>-activation_table
 <span class="hljs-comment"># 再度activation_tableを表示</span>
 <span class="hljs-built_in">print</span>(activation_table_div10)
 </code></pre>
-<p>一応複製</p>
+<p><img src="https://gyazo.com/9f467b499e0c205f453309cfdef4a1da.png" alt></p>
+<p>ここまで作成したデータフレームをテスト用に使用するため、複製した。</p>
 <pre><code class="lang-python">input_df2=input_df.copy()
 <span class="hljs-built_in">print</span>(input_df)
 <span class="hljs-built_in">print</span>(input_df2)
 </code></pre>
-<p>拡散した値を計算し活性化させる</p>
+<p><img src="https://gyazo.com/5ee82631eeaf6ad66203cd307198bc5b.png" alt></p>
+<p>活性化のために作成したデータフレームを検索データベースとして使用し、元のデータフレームに対応する活性値を足し算していく。
+後に忘却の値も実装する。
+さらに、データベースに保存する機能も実装する。</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> sqlite3
 <span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 <span class="hljs-keyword">import</span> sqlite3
@@ -681,7 +696,7 @@ images = []
             input_df2.loc[input_df2[<span class="hljs-string">&apos;id_description&apos;</span>] == activation_table_div10.columns[i], <span class="hljs-string">&apos;activation&apos;</span>] += activity_value_temp
             <span class="hljs-built_in">print</span>(input_df2)
 
-            plt.barh(input_df2[<span class="hljs-string">&apos;id_description&apos;</span>][<span class="hljs-number">0</span>:<span class="hljs-number">5</span>], input_df2[<span class="hljs-string">&apos;activation&apos;</span>][<span class="hljs-number">0</span>:<span class="hljs-number">5</span>])
+            plt.barh(input_df2[<span class="hljs-string">&apos;id_description&apos;</span>][<span class="hljs-number">0</span>:<span class="hljs-built_in">len</span>(activation_table_div10.columns)-<span class="hljs-number">1</span>], input_df2[<span class="hljs-string">&apos;activation&apos;</span>][<span class="hljs-number">0</span>:<span class="hljs-built_in">len</span>(activation_table_div10.columns)-<span class="hljs-number">1</span>])
 
             <span class="hljs-comment"># グラフのタイトルと軸ラベルの設定</span>
             plt.title(<span class="hljs-string">&apos;Activation by ID Description&apos;</span>)
@@ -701,8 +716,9 @@ images = []
 images[<span class="hljs-number">0</span>].save(GIF_path_100, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;GIF&apos;</span>, append_images=images[<span class="hljs-number">1</span>:], save_all=<span class="hljs-literal">True</span>, duration=<span class="hljs-number">100</span>, loop=<span class="hljs-number">0</span>)
 images[<span class="hljs-number">0</span>].save(GIF_path_1000, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;GIF&apos;</span>, append_images=images[<span class="hljs-number">1</span>:], save_all=<span class="hljs-literal">True</span>, duration=<span class="hljs-number">1000</span>, loop=<span class="hljs-number">0</span>)
 </code></pre>
+<p><img src="https://gyazo.com/a101505b063f24ed312ce2de3c098413.png" alt></p>
 <h1 id="可視化"><a name="可視化" class="plugin-anchor" href="#可視化"><i class="fa fa-link" aria-hidden="true"></i></a>可視化</h1>
-<p>類似度ヒートマップを作成</p>
+<p>作成したデータフレームの値を用いて、ヒートマップと知識間関連図を表示</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
 <span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -717,7 +733,9 @@ sns.heatmap(activation_table_div10,cmap=<span class="hljs-string">&quot;winter&q
 plt.savefig(Heatmap_path)
 plot_points()
 </code></pre>
-<p>ネットワークグラフを作成する</p>
+<p><img src="https://gyazo.com/a2ead611d09f0fa72f63e1160f390200.png" alt>
+<img src="https://gyazo.com/450ab752992afc00e0d38a92bb1a2481.png" alt></p>
+<p>既存の知識の類似度を用いて、ネットワークグラフを作成する</p>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 <span class="hljs-keyword">import</span> networkx <span class="hljs-keyword">as</span> nx
 <span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
@@ -756,13 +774,27 @@ plt.axis(<span class="hljs-string">&apos;off&apos;</span>)
 plt.savefig(Network_path)
 plt.show()  <span class="hljs-comment"># グラフを表示するための追加行</span>
 </code></pre>
-<p>Gif画像を表示</p>
+<p><img src="https://gyazo.com/0f227eb902fafc299ee966da88f9ba4e.png" alt></p>
+<p>正規化後に補正した値を用いて活性化を行っている様子を知識ごとに可視化している。</p>
 <pre><code class="lang-python"><span class="hljs-comment"># GIF画像の表示</span>
 <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(GIF_path_100, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
     b64 = base64.b64encode(f.read()).decode(<span class="hljs-string">&quot;ascii&quot;</span>)
 
 display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gif;base64,<span class="hljs-subst">{b64}</span>&quot; /&gt;&apos;</span>))
 </code></pre>
+<p><img src="image/output_100_v3.gif" alt></p>
+<p>上記の一連のプログラムでは、以下のように時間がかかっている
+時間がかかっている項目を上から順に並べると以下の通りだ</p>
+<ul>
+<li>24.9秒 -&gt; （可視化）既存知識の類似度プロット</li>
+<li>5.5秒 -&gt; （入力）　文字列の入力</li>
+<li>1.1秒 -&gt; （可視化）既存知識の類似度プロット</li>
+<li>0.9秒 -&gt; （可視化）類似度ヒートマップ</li>
+<li>0.7秒 -&gt; （可視化）データベースから情報を抽出</li>
+<li>0.5秒 -&gt; （可視化）類似度ネットワーク</li>
+<li>0.0秒 -&gt; （その他）計算・処理</li>
+</ul>
+<p>入力は人力のため、改善の余地が無いが、可視化の点に関しては削減が簡単であるため、次の実験では、可視化を無くし、最低限の時間でSAP-netを動作させられるように改善していく必要があると考える。</p>
 
                                 
                                 </section>
@@ -802,7 +834,7 @@ display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gi
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"実験04（SAP-net_非完全版-値保存不可）","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.3.4","depth":2,"previous":{"title":"実験03（知識有りのSAP-net）","level":"1.3.3","depth":2,"path":"02_paper_03.md","ref":"02_paper_03.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_04.md","mtime":"2023-06-14T16:15:16.742Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-14T16:15:44.824Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"実験04（SAP-net_非完全版-値保存不可）","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.3.4","depth":2,"previous":{"title":"実験03（知識有りのSAP-net）","level":"1.3.3","depth":2,"path":"02_paper_03.md","ref":"02_paper_03.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_04.md","mtime":"2023-06-14T16:55:29.225Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-14T16:56:57.431Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
