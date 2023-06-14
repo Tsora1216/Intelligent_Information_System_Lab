@@ -411,7 +411,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="二次元マップをテスト"><a name="二次元マップをテスト" class="plugin-anchor" href="#二次元マップをテスト"><i class="fa fa-link" aria-hidden="true"></i></a>二次元マップをテスト</h2>
+                                <h1 id="二次元マップをテスト"><a name="二次元マップをテスト" class="plugin-anchor" href="#二次元マップをテスト"><i class="fa fa-link" aria-hidden="true"></i></a>二次元マップをテスト</h1>
 <p>二次元マップで中心にエージェントを仮想的に配置した
 10個のランダムな距離と中心からの角度を生成し、それらを点P群とした
 それらの点P群は距離は0～500cm(5m)で、角度は0～360°の値をとっている
@@ -574,6 +574,7 @@ points = generate_points()
 plot_points_with_lines(points)
 </code></pre>
 <p><img src="image-5.png" alt="Alt text"></p>
+<h1 id="sqlをテスト"><a name="sqlをテスト" class="plugin-anchor" href="#sqlをテスト"><i class="fa fa-link" aria-hidden="true"></i></a>SQLをテスト</h1>
 <p>情報を保存する必要があるため、SQLのテストを開始した。</p>
 <p>SQLiteを使用して、データベースによる情報の保持テストを開始した。
 まずはデータベースを作成するプログラムを組んだ。
@@ -642,6 +643,245 @@ conn.close()
 SQL_SetUp()
 </code></pre>
 <p><img src="image-7.png" alt="Alt text"></p>
+<h1 id="実データを想定してsqlを作成"><a name="実データを想定してsqlを作成" class="plugin-anchor" href="#実データを想定してsqlを作成"><i class="fa fa-link" aria-hidden="true"></i></a>実データを想定してSQLを作成</h1>
+<p>次に、SQLに情報を挿入する関数を作成していく。
+初期状態に下記の情報を埋め込む際を想定している。
+| 知識名       | 角度Θ(°) | 距離r(m) | 
+| ------------ | ---- | ---- | 
+| 直進         | 320  | 4    | 
+| 右寄りの直進 | 340  | 2    | 
+| 直進         | 0    | 1    | 
+| 右寄りの直進 | 20  | 2    | 
+| 直進         | 40    | 4    |</p>
+<p>それぞれのカラム名とSQLのヘッダーを併せてからInsertする。</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">SQL_InsertData</span>():</span>
+    data = [
+        (<span class="hljs-string">&quot;直進&quot;</span>, <span class="hljs-number">320</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>),
+        (<span class="hljs-string">&quot;右寄りの直進&quot;</span>, <span class="hljs-number">340</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>),
+        (<span class="hljs-string">&quot;直進&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>),
+        (<span class="hljs-string">&quot;右寄りの直進&quot;</span>, <span class="hljs-number">20</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>),
+        (<span class="hljs-string">&quot;直進&quot;</span>, <span class="hljs-number">40</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>)
+    ]
+
+    conn = sqlite3.connect(<span class="hljs-string">&apos;database.sqlite&apos;</span>)
+    cursor = conn.cursor()
+
+    <span class="hljs-comment"># データを挿入</span>
+    cursor.executemany(<span class="hljs-string">&quot;INSERT INTO knowledge (description, angle, distance, activation) VALUES (?, ?, ?, ?)&quot;</span>, data)
+
+    conn.commit()
+    conn.close()
+
+<span class="hljs-comment"># データの挿入</span>
+SQL_InsertData()
+</code></pre>
+<p><img src="https://gyazo.com/3b8a5d6edaba0cd8aab0a1aa8d30391d.png" alt="Alt Image"></p>
+<p>さらに追加でデータの追加ができるような関数を作成。
+SQL_AddDataを呼び出せば、下記のようにデータを追加できる。</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">SQL_AddData</span>(<span class="hljs-params">description, angle, distance, activation</span>):</span>
+    conn = sqlite3.connect(<span class="hljs-string">&apos;database.sqlite&apos;</span>)
+    cursor = conn.cursor()
+
+    <span class="hljs-comment"># データを挿入</span>
+    cursor.execute(<span class="hljs-string">&quot;INSERT INTO knowledge (description, angle, distance, activation) VALUES (?, ?, ?, ?)&quot;</span>,
+                   (description, angle, distance, activation))
+
+    conn.commit()
+    conn.close()
+
+<span class="hljs-comment"># データの追加</span>
+description = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;説明: &quot;</span>)
+angle = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;角度: &quot;</span>))
+distance = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;距離: &quot;</span>))
+activation = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;アクティベーション: &quot;</span>))
+
+SQL_AddData(description, angle, distance, activation)
+</code></pre>
+<p><img src="https://gyazo.com/21e799219b706ad4ef1d5e30323dabfe.png" alt></p>
+<p>次に、knowledgeテーブルにあるデータをすべて表示する関数を作成した。</p>
+<pre><code>import sqlite3
+
+def SQL_DisplayData():
+    conn = sqlite3.connect(&apos;database.sqlite&apos;)
+    cursor = conn.cursor()
+
+    # データを取得して表示
+    cursor.execute(&quot;SELECT * FROM knowledge&quot;)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+    conn.close()
+
+# データの表示
+SQL_DisplayData()
+</code></pre><p><img src="https://gyazo.com/a62a45cbcc62db1b7242663b00b3ce2c.png" alt></p>
+<h1 id="まとめ"><a name="まとめ" class="plugin-anchor" href="#まとめ"><i class="fa fa-link" aria-hidden="true"></i></a>まとめ</h1>
+<p>上記でテストしてきたコードをまとめ、実際のプログラムで使用する関数を作成する
+SQL内部に保存されている、データを取得してきて、マップ上に可視化する</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> sqlite3
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">retrieve_data</span>():</span>
+    conn = sqlite3.connect(<span class="hljs-string">&apos;database.sqlite&apos;</span>)
+    cursor = conn.cursor()
+
+    <span class="hljs-comment"># データを取得</span>
+    cursor.execute(<span class="hljs-string">&quot;SELECT angle, distance FROM knowledge&quot;</span>)
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    <span class="hljs-keyword">return</span> rows
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">convert_data</span>(<span class="hljs-params">points</span>):</span>
+    converted_points = []
+    <span class="hljs-keyword">for</span> angle, distance <span class="hljs-keyword">in</span> points:
+        shifted_angle = angle + <span class="hljs-number">90</span>  <span class="hljs-comment"># 角度を+90度ずらす</span>
+        x = distance * np.cos(np.deg2rad(shifted_angle))
+        y = distance * np.sin(np.deg2rad(shifted_angle))
+        converted_points.append((x, y))
+    <span class="hljs-keyword">return</span> converted_points
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_points_with_lines</span>(<span class="hljs-params">points</span>):</span>
+    fig, ax = plt.subplots()
+    ax.set_aspect(<span class="hljs-string">&apos;equal&apos;</span>)
+    ax.set_xlim(-<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)
+    ax.set_ylim(-<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)
+
+    <span class="hljs-comment"># ポイントをプロット</span>
+    ax.scatter(*<span class="hljs-built_in">zip</span>(*points), c=<span class="hljs-string">&apos;b&apos;</span>, marker=<span class="hljs-string">&apos;o&apos;</span>)
+
+    <span class="hljs-comment"># 中心座標を計算</span>
+    center_x, center_y = <span class="hljs-number">0</span>, <span class="hljs-number">0</span>
+
+    <span class="hljs-comment"># 点と中心を線で結ぶ</span>
+    <span class="hljs-keyword">for</span> point <span class="hljs-keyword">in</span> points:
+        x, y = point
+        ax.plot([center_x, x], [center_y, y], <span class="hljs-string">&apos;r--&apos;</span>)
+
+    plt.show()
+
+<span class="hljs-comment"># データを取得</span>
+data = retrieve_data()
+<span class="hljs-built_in">print</span>(data)
+
+<span class="hljs-comment"># データを変換</span>
+points = convert_data(data)
+
+<span class="hljs-comment"># プロット</span>
+plot_points_with_lines(points)
+</code></pre>
+<p><img src="https://gyazo.com/927323daaf4d69362c25471133cd6e47.png" alt></p>
+<p>下記の通り扱いやすいよう一つの関数にまとめると、下記の通りになる。</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> sqlite3
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_points</span>():</span>
+    conn = sqlite3.connect(<span class="hljs-string">&apos;database.sqlite&apos;</span>)
+    cursor = conn.cursor()
+
+    <span class="hljs-comment"># データを取得</span>
+    cursor.execute(<span class="hljs-string">&quot;SELECT angle, distance FROM knowledge&quot;</span>)
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    <span class="hljs-comment"># データを変換</span>
+    converted_points = []
+    <span class="hljs-keyword">for</span> angle, distance <span class="hljs-keyword">in</span> rows:
+        shifted_angle = angle + <span class="hljs-number">90</span>  <span class="hljs-comment"># 角度を+90度ずらす</span>
+        x = distance * np.cos(np.deg2rad(shifted_angle))
+        y = distance * np.sin(np.deg2rad(shifted_angle))
+        converted_points.append((x, y))
+
+    <span class="hljs-comment"># 図にプロット</span>
+    fig, ax = plt.subplots()
+    ax.set_aspect(<span class="hljs-string">&apos;equal&apos;</span>)
+    ax.set_xlim(-<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)
+    ax.set_ylim(-<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)
+
+    <span class="hljs-comment"># ポイントをプロット</span>
+    ax.scatter(*<span class="hljs-built_in">zip</span>(*converted_points), c=<span class="hljs-string">&apos;b&apos;</span>, marker=<span class="hljs-string">&apos;o&apos;</span>)
+
+    <span class="hljs-comment"># 中心座標を計算</span>
+    center_x, center_y = <span class="hljs-number">0</span>, <span class="hljs-number">0</span>
+
+    <span class="hljs-comment"># 点と中心を線で結ぶ</span>
+    <span class="hljs-keyword">for</span> point <span class="hljs-keyword">in</span> converted_points:
+        x, y = point
+        ax.plot([center_x, x], [center_y, y], <span class="hljs-string">&apos;r--&apos;</span>)
+
+    plt.show()
+
+<span class="hljs-comment"># データのプロット</span>
+plot_points()
+</code></pre>
+<p><img src="https://gyazo.com/05e1a512a49ebf545e6eb626ab5e5903.png" alt></p>
+<p>さらに追加機能として、プロットに説明を表示するようにした。
+日本語を表示する際の難易度の高さにびっくりしたが、できるようになった。
+その際の変更点としては下記の通りである。
+・グラフ全体を少し大きくした
+・MSGothicでのフォントを導入
+・標準で記載される場所より少し上に記載（英語だとピッタリ）</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">from</span> matplotlib.font_manager <span class="hljs-keyword">import</span> FontProperties
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_points</span>():</span>
+    conn = sqlite3.connect(<span class="hljs-string">&apos;database.sqlite&apos;</span>)
+    cursor = conn.cursor()
+
+    <span class="hljs-comment"># データを取得</span>
+    cursor.execute(<span class="hljs-string">&quot;SELECT description, angle, distance FROM knowledge&quot;</span>)
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    <span class="hljs-comment"># データを変換</span>
+    converted_points = []
+    descriptions = []
+    <span class="hljs-keyword">for</span> description, angle, distance <span class="hljs-keyword">in</span> rows:
+        shifted_angle = angle + <span class="hljs-number">90</span>  <span class="hljs-comment"># 角度を+90度ずらす</span>
+        x = distance * np.cos(np.deg2rad(shifted_angle))
+        y = distance * np.sin(np.deg2rad(shifted_angle))
+        converted_points.append((x, y))
+        descriptions.append(description)
+
+    <span class="hljs-comment"># 図にプロット</span>
+    fig, ax = plt.subplots(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))  <span class="hljs-comment"># グラフのサイズを設定</span>
+    ax.set_aspect(<span class="hljs-string">&apos;equal&apos;</span>)
+    ax.set_xlim(-<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)
+    ax.set_ylim(-<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)
+
+    <span class="hljs-comment"># MS Gothicフォントを読み込む</span>
+    font_prop = FontProperties(fname=<span class="hljs-string">r&apos;C:\Windows\Fonts\msgothic.ttc&apos;</span>, size=<span class="hljs-number">9</span>)
+
+    <span class="hljs-comment"># ポイントをプロット</span>
+    scatter = ax.scatter(*<span class="hljs-built_in">zip</span>(*converted_points), c=<span class="hljs-string">&apos;b&apos;</span>, marker=<span class="hljs-string">&apos;o&apos;</span>)
+
+    <span class="hljs-comment"># 中心座標を計算</span>
+    center_x, center_y = <span class="hljs-number">0</span>, <span class="hljs-number">0</span>
+
+    <span class="hljs-comment"># 点と中心を線で結ぶ</span>
+    <span class="hljs-keyword">for</span> point, description <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(converted_points, descriptions):
+        x, y = point
+        ax.plot([center_x, x], [center_y, y], <span class="hljs-string">&apos;r--&apos;</span>)
+        ax.text(x, y, description, ha=<span class="hljs-string">&apos;center&apos;</span>, va=<span class="hljs-string">&apos;bottom&apos;</span>, fontproperties=font_prop)
+
+    plt.show()
+
+<span class="hljs-comment"># データのプロット</span>
+plot_points()
+</code></pre>
+<p><img src="https://gyazo.com/37c34ee7598af92050324b01c4bfd28a.png" alt></p>
 
                                 
                                 </section>
@@ -685,7 +925,7 @@ SQL_SetUp()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"実験02","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.3.2","depth":2,"next":{"title":"実験03","level":"1.3.3","depth":2,"path":"02_paper_03.md","ref":"02_paper_03.md","articles":[]},"previous":{"title":"実験01","level":"1.3.1","depth":2,"path":"02_paper_01.md","ref":"02_paper_01.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_02.md","mtime":"2023-06-12T04:16:20.414Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-12T04:43:59.066Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"実験02","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.3.2","depth":2,"next":{"title":"実験03","level":"1.3.3","depth":2,"path":"02_paper_03.md","ref":"02_paper_03.md","articles":[]},"previous":{"title":"実験01","level":"1.3.1","depth":2,"path":"02_paper_01.md","ref":"02_paper_01.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_02.md","mtime":"2023-06-14T05:23:59.999Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-14T05:25:33.946Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
