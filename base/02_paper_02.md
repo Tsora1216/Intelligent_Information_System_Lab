@@ -6,10 +6,10 @@ slide: false
 ---
 
 # 二次元マップをテスト
-二次元マップで中心にエージェントを仮想的に配置した
-10個のランダムな距離と中心からの角度を生成し、それらを点P群とした
-それらの点P群は距離は0～500cm(5m)で、角度は0～360°の値をとっている
-それらの点P群を二次元マップに書き込んで表示している
+二次元マップで中心にエージェントを仮想的に配置した<br>
+10個のランダムな距離と中心からの角度を生成し、それらを点P群とした<br>
+それらの点P群は距離は0～500cm(5m)で、角度は0～360°の値をとっている<br>
+それらの点P群を二次元マップに書き込んで表示している<br>
 ```Python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -78,7 +78,7 @@ plot_points_with_lines(points)
 ```
 ![6ac57f35-aba0-49af-94ba-014cb3e20464.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2502107/1b748d2e-a9e8-ed38-856f-937cdc0bdb2d.png)
 
-プロットするプログラムの理解が進んだところで実際の知識タグの値を用いて可視化を行った。
+プロットするプログラムの理解が進んだところで実際の知識タグの値を用いて可視化を行った。<br>
 情報は下記の通りである
 | 知識名       | 角度Θ(°) | 距離r(m) | 
 | ------------ | ---- | ---- | 
@@ -132,7 +132,8 @@ plot_points_with_lines(points)
 ```
 ![Alt text](image-4.png)
 
-現在の状態ではプロット場所が右を見てしまっているため、すべてを+90°した値でプロットするようにした。これによりプロットが正面を向くようになった。
+現在の状態ではプロット場所が右を見てしまっているため、すべてを+90°した値でプロットするようにした。<br>
+これによりプロットが正面を向くようになった。
 
 ```Python
 import numpy as np
@@ -182,8 +183,8 @@ plot_points_with_lines(points)
 情報を保存する必要があるため、SQLのテストを開始した。
 
 
-SQLiteを使用して、データベースによる情報の保持テストを開始した。
-まずはデータベースを作成するプログラムを組んだ。
+SQLiteを使用して、データベースによる情報の保持テストを開始した。<br>
+まずはデータベースを作成するプログラムを組んだ。<br>
 その中でもテーブルが存在しない環境下のみ動作するようにププログラムを行った。<br>
 ```python
 import sqlite3
@@ -256,8 +257,8 @@ SQL_SetUp()
 ![Alt text](image-7.png)
 
 # 実データを想定してSQLを作成
-次に、SQLに情報を挿入する関数を作成していく。
-初期状態に下記の情報を埋め込む際を想定している。
+次に、SQLに情報を挿入する関数を作成していく。<br>
+初期状態に下記の情報を埋め込む際を想定している。<br>
 | 知識名       | 角度Θ(°) | 距離r(m) | 
 | ------------ | ---- | ---- | 
 | 直進         | 320  | 4    | 
@@ -295,7 +296,7 @@ SQL_InsertData()
 ![Alt Image](https://gyazo.com/3b8a5d6edaba0cd8aab0a1aa8d30391d.png)
 
 
-さらに追加でデータの追加ができるような関数を作成。
+さらに追加でデータの追加ができるような関数を作成。<br>
 SQL_AddDataを呼び出せば、下記のようにデータを追加できる。
 ```Python
 import sqlite3
@@ -343,8 +344,8 @@ SQL_DisplayData()
 ```
 ![](https://gyazo.com/a62a45cbcc62db1b7242663b00b3ce2c.png)
 
-# まとめ
-上記でテストしてきたコードをまとめ、実際のプログラムで使用する関数を作成する
+# SQLデータの可視化
+上記でテストしてきたコードをまとめ、実際のプログラムで使用する関数を作成する<br>
 SQL内部に保存されている、データを取得してきて、マップ上に可視化する
 ```Python
 import numpy as np
@@ -452,12 +453,12 @@ plot_points()
 ```
 ![](https://gyazo.com/05e1a512a49ebf545e6eb626ab5e5903.png)
 
-さらに追加機能として、プロットに説明を表示するようにした。
-日本語を表示する際の難易度の高さにびっくりしたが、できるようになった。
-その際の変更点としては下記の通りである。
-・グラフ全体を少し大きくした
-・MSGothicでのフォントを導入
-・標準で記載される場所より少し上に記載（英語だとピッタリ）
+さらに追加機能として、プロットに説明を表示するようにした。<br>
+日本語を表示する際の難易度の高さにびっくりしたが、できるようになった。<br>
+その際の変更点としては下記の通りである。<br>
+・グラフ全体を少し大きくした<br>
+・MSGothicでのフォントを導入<br>
+・標準で記載される場所より少し上に記載（英語だとピッタリ）<br>
 ```Python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -511,3 +512,173 @@ def plot_points():
 plot_points()
 ```
 ![](https://gyazo.com/37c34ee7598af92050324b01c4bfd28a.png)
+
+# まとめ
+
+## SQLのセットアップ関数（SQL_SetUp）
+database.sqliteを作成し、内部にknowledgeテーブルを作成する関数
+```Python
+import sqlite3
+
+def SQL_SetUp():
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データベースファイルが存在する場合は処理を終了
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    existing_tables = cursor.fetchall()
+    if existing_tables:
+        print("Database already exists. Exiting setup.")
+        conn.close()
+        return
+
+    # テーブルを作成
+    cursor.execute('''
+        CREATE TABLE knowledge (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            angle FLOAT,
+            distance FLOAT,
+            activation FLOAT DEFAULT 0,
+            description TEXT
+        )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+# データベースのセットアップ
+SQL_SetUp()
+```
+![](https://gyazo.com/0e17c54868bfd7ee2eade59fb795e96e.png)
+
+
+## SQLのデータの挿入(SQL_InsertData)
+database.sqliteのknowledgeテーブルに既定の情報を追加していく関数
+```python
+import sqlite3
+
+def SQL_InsertData():
+    data = [
+        ("直進", 320, 4, 0),
+        ("右寄りの直進", 340, 2, 0),
+        ("直進", 0, 1, 0),
+        ("右寄りの直進", 20, 2, 0),
+        ("直進", 40, 4, 0)
+    ]
+
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを挿入
+    cursor.executemany("INSERT INTO knowledge (description, angle, distance, activation) VALUES (?, ?, ?, ?)", data)
+
+    conn.commit()
+    conn.close()
+
+# データの挿入
+SQL_InsertData()
+```
+![](https://gyazo.com/2062bc9af8ed0b94ba20e521ce7da46c.png)
+
+## SQLのデータの追加（SQL_AddData）
+database.sqliteのknowledgeテーブルに入力した情報を追加していく関数<br>
+下記のプログラムでは（後退、180、2）と入力しました。<br>
+```python
+import sqlite3
+
+def SQL_AddData(description, angle, distance, activation):
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを挿入
+    cursor.execute("INSERT INTO knowledge (description, angle, distance, activation) VALUES (?, ?, ?, ?)",
+                   (description, angle, distance, activation))
+
+    conn.commit()
+    conn.close()
+
+# データの追加
+description = input("説明: ")
+angle = float(input("角度: "))
+distance = float(input("距離: "))
+activation = float(input("アクティベーション: "))
+
+SQL_AddData(description, angle, distance, activation)
+```
+![](https://gyazo.com/bcea1647366235f8ce048eba95e0c1fd.png)
+## SQLデータの表示（SQL_DisplayData）
+database.sqliteのknowledgeテーブルに格納されている情報を表示する関数
+```Python
+import sqlite3
+
+def SQL_DisplayData():
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを取得して表示
+    cursor.execute("SELECT * FROM knowledge")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+    conn.close()
+
+# データの表示
+SQL_DisplayData()
+```
+![](https://gyazo.com/5479d192d99c11adf0a9c676ec99365d.png)
+## SQLデータの可視化（plot_points）
+database.sqliteのknowledgeテーブルに格納されている情報に基づいてデータをプロットする関数
+```Python
+import numpy as np
+import matplotlib.pyplot as plt
+import sqlite3
+from matplotlib.font_manager import FontProperties
+
+def plot_points():
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを取得
+    cursor.execute("SELECT description, angle, distance FROM knowledge")
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    # データを変換
+    converted_points = []
+    descriptions = []
+    for description, angle, distance in rows:
+        shifted_angle = angle + 90  # 角度を+90度ずらす
+        x = distance * np.cos(np.deg2rad(shifted_angle))
+        y = distance * np.sin(np.deg2rad(shifted_angle))
+        converted_points.append((x, y))
+        descriptions.append(description)
+
+    # 図にプロット
+    fig, ax = plt.subplots(figsize=(8, 8))  # グラフのサイズを設定
+    ax.set_aspect('equal')
+    ax.set_xlim(-5, 5)
+    ax.set_ylim(-5, 5)
+
+    # MS Gothicフォントを読み込む
+    font_prop = FontProperties(fname=r'C:\Windows\Fonts\msgothic.ttc', size=9)
+
+    # ポイントをプロット
+    scatter = ax.scatter(*zip(*converted_points), c='b', marker='o')
+
+    # 中心座標を計算
+    center_x, center_y = 0, 0
+
+    # 点と中心を線で結ぶ
+    for point, description in zip(converted_points, descriptions):
+        x, y = point
+        ax.plot([center_x, x], [center_y, y], 'r--')
+        ax.text(x, y, description, ha='center', va='bottom', fontproperties=font_prop)
+
+    plt.show()
+
+# データのプロット
+plot_points()
+```
+![](https://gyazo.com/aeec4d96fa67926799dc46b39d819341.png)
