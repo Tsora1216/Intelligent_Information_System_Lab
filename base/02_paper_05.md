@@ -8,4 +8,7 @@ slide: false
 
 目的は、前回のSAP-netの高速化を行い、転移先が用意されればすぐに転移できるSAP-netの作成を行うことである。
 
+0.3秒に短縮
+![](https://gyazo.com/362009717251c47be209f0b155d2fb7f.png)
+
 #
