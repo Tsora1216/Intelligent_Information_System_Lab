@@ -5,7 +5,7 @@ author: Tsora1216
 slide: false
 ---
 
-## 二次元マップをテスト
+# 二次元マップをテスト
 二次元マップで中心にエージェントを仮想的に配置した
 10個のランダムな距離と中心からの角度を生成し、それらを点P群とした
 それらの点P群は距離は0～500cm(5m)で、角度は0～360°の値をとっている
@@ -178,6 +178,7 @@ plot_points_with_lines(points)
 ```
 ![Alt text](image-5.png)
 
+# SQLをテスト
 情報を保存する必要があるため、SQLのテストを開始した。
 
 
@@ -253,3 +254,260 @@ def SQL_SetUp():
 SQL_SetUp()
 ```
 ![Alt text](image-7.png)
+
+# 実データを想定してSQLを作成
+次に、SQLに情報を挿入する関数を作成していく。
+初期状態に下記の情報を埋め込む際を想定している。
+| 知識名       | 角度Θ(°) | 距離r(m) | 
+| ------------ | ---- | ---- | 
+| 直進         | 320  | 4    | 
+| 右寄りの直進 | 340  | 2    | 
+| 直進         | 0    | 1    | 
+| 右寄りの直進 | 20  | 2    | 
+| 直進         | 40    | 4    |
+
+それぞれのカラム名とSQLのヘッダーを併せてからInsertする。
+```Python
+import sqlite3
+
+def SQL_InsertData():
+    data = [
+        ("直進", 320, 4, 0),
+        ("右寄りの直進", 340, 2, 0),
+        ("直進", 0, 1, 0),
+        ("右寄りの直進", 20, 2, 0),
+        ("直進", 40, 4, 0)
+    ]
+
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを挿入
+    cursor.executemany("INSERT INTO knowledge (description, angle, distance, activation) VALUES (?, ?, ?, ?)", data)
+
+    conn.commit()
+    conn.close()
+
+# データの挿入
+SQL_InsertData()
+```
+
+![Alt Image](https://gyazo.com/3b8a5d6edaba0cd8aab0a1aa8d30391d.png)
+
+
+さらに追加でデータの追加ができるような関数を作成。
+SQL_AddDataを呼び出せば、下記のようにデータを追加できる。
+```Python
+import sqlite3
+
+def SQL_AddData(description, angle, distance, activation):
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを挿入
+    cursor.execute("INSERT INTO knowledge (description, angle, distance, activation) VALUES (?, ?, ?, ?)",
+                   (description, angle, distance, activation))
+
+    conn.commit()
+    conn.close()
+
+# データの追加
+description = input("説明: ")
+angle = float(input("角度: "))
+distance = float(input("距離: "))
+activation = float(input("アクティベーション: "))
+
+SQL_AddData(description, angle, distance, activation)
+
+```
+![](https://gyazo.com/21e799219b706ad4ef1d5e30323dabfe.png)
+
+次に、knowledgeテーブルにあるデータをすべて表示する関数を作成した。
+```
+import sqlite3
+
+def SQL_DisplayData():
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを取得して表示
+    cursor.execute("SELECT * FROM knowledge")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+    conn.close()
+
+# データの表示
+SQL_DisplayData()
+```
+![](https://gyazo.com/a62a45cbcc62db1b7242663b00b3ce2c.png)
+
+# まとめ
+上記でテストしてきたコードをまとめ、実際のプログラムで使用する関数を作成する
+SQL内部に保存されている、データを取得してきて、マップ上に可視化する
+```Python
+import numpy as np
+import matplotlib.pyplot as plt
+import sqlite3
+
+def retrieve_data():
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを取得
+    cursor.execute("SELECT angle, distance FROM knowledge")
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return rows
+
+def convert_data(points):
+    converted_points = []
+    for angle, distance in points:
+        shifted_angle = angle + 90  # 角度を+90度ずらす
+        x = distance * np.cos(np.deg2rad(shifted_angle))
+        y = distance * np.sin(np.deg2rad(shifted_angle))
+        converted_points.append((x, y))
+    return converted_points
+
+def plot_points_with_lines(points):
+    fig, ax = plt.subplots()
+    ax.set_aspect('equal')
+    ax.set_xlim(-5, 5)
+    ax.set_ylim(-5, 5)
+
+    # ポイントをプロット
+    ax.scatter(*zip(*points), c='b', marker='o')
+
+    # 中心座標を計算
+    center_x, center_y = 0, 0
+
+    # 点と中心を線で結ぶ
+    for point in points:
+        x, y = point
+        ax.plot([center_x, x], [center_y, y], 'r--')
+
+    plt.show()
+
+# データを取得
+data = retrieve_data()
+print(data)
+
+# データを変換
+points = convert_data(data)
+
+# プロット
+plot_points_with_lines(points)
+
+```
+![](https://gyazo.com/927323daaf4d69362c25471133cd6e47.png)
+
+下記の通り扱いやすいよう一つの関数にまとめると、下記の通りになる。
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import sqlite3
+
+def plot_points():
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを取得
+    cursor.execute("SELECT angle, distance FROM knowledge")
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    # データを変換
+    converted_points = []
+    for angle, distance in rows:
+        shifted_angle = angle + 90  # 角度を+90度ずらす
+        x = distance * np.cos(np.deg2rad(shifted_angle))
+        y = distance * np.sin(np.deg2rad(shifted_angle))
+        converted_points.append((x, y))
+
+    # 図にプロット
+    fig, ax = plt.subplots()
+    ax.set_aspect('equal')
+    ax.set_xlim(-5, 5)
+    ax.set_ylim(-5, 5)
+
+    # ポイントをプロット
+    ax.scatter(*zip(*converted_points), c='b', marker='o')
+
+    # 中心座標を計算
+    center_x, center_y = 0, 0
+
+    # 点と中心を線で結ぶ
+    for point in converted_points:
+        x, y = point
+        ax.plot([center_x, x], [center_y, y], 'r--')
+
+    plt.show()
+
+# データのプロット
+plot_points()
+```
+![](https://gyazo.com/05e1a512a49ebf545e6eb626ab5e5903.png)
+
+さらに追加機能として、プロットに説明を表示するようにした。
+日本語を表示する際の難易度の高さにびっくりしたが、できるようになった。
+その際の変更点としては下記の通りである。
+・グラフ全体を少し大きくした
+・MSGothicでのフォントを導入
+・標準で記載される場所より少し上に記載（英語だとピッタリ）
+```Python
+import numpy as np
+import matplotlib.pyplot as plt
+import sqlite3
+from matplotlib.font_manager import FontProperties
+
+def plot_points():
+    conn = sqlite3.connect('database.sqlite')
+    cursor = conn.cursor()
+
+    # データを取得
+    cursor.execute("SELECT description, angle, distance FROM knowledge")
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    # データを変換
+    converted_points = []
+    descriptions = []
+    for description, angle, distance in rows:
+        shifted_angle = angle + 90  # 角度を+90度ずらす
+        x = distance * np.cos(np.deg2rad(shifted_angle))
+        y = distance * np.sin(np.deg2rad(shifted_angle))
+        converted_points.append((x, y))
+        descriptions.append(description)
+
+    # 図にプロット
+    fig, ax = plt.subplots(figsize=(8, 8))  # グラフのサイズを設定
+    ax.set_aspect('equal')
+    ax.set_xlim(-5, 5)
+    ax.set_ylim(-5, 5)
+
+    # MS Gothicフォントを読み込む
+    font_prop = FontProperties(fname=r'C:\Windows\Fonts\msgothic.ttc', size=9)
+
+    # ポイントをプロット
+    scatter = ax.scatter(*zip(*converted_points), c='b', marker='o')
+
+    # 中心座標を計算
+    center_x, center_y = 0, 0
+
+    # 点と中心を線で結ぶ
+    for point, description in zip(converted_points, descriptions):
+        x, y = point
+        ax.plot([center_x, x], [center_y, y], 'r--')
+        ax.text(x, y, description, ha='center', va='bottom', fontproperties=font_prop)
+
+    plt.show()
+
+# データのプロット
+plot_points()
+```
+![](https://gyazo.com/37c34ee7598af92050324b01c4bfd28a.png)
