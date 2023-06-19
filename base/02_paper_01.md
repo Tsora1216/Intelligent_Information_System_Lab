@@ -104,7 +104,7 @@ im
 # 文字列ネットワークの検証
 下記のプログラムが、文字列ネットワークで作成した仮想SAP-netのプログラムである。
 
-## 準備
+## フォルダ準備
 文字列ネットワークを作成した際に保存する先のフォルダーを時間軸によって分岐するためのプログラム
 ```Python
 import os
@@ -131,6 +131,7 @@ GIF_path_100 = folder_name + '/graph_100.gif'
 GIF_path_1000 = folder_name + '/graph_1000.gif'
 ```
 
+## モデル準備
 作成した学習済みモデルをロードして使用するプログラム
 ```Python
 import pandas as pd
@@ -146,6 +147,7 @@ import japanize_matplotlib
 model = Word2Vec.load(model_file_path)
 ```
 
+## データベース準備
 データベースを用意して、29万字の文字列を持ち、それらの活性化の値を保存するプログラム
 ```Python
 from gensim.models import Word2Vec
@@ -302,6 +304,7 @@ plt.savefig(Network_path)
 ```
 ![](https://gyazo.com/0558ef4ca104fe8cb7d6def4af6921a5.png)
 
+## SAP-net処理
 上記の類似度ネットワークを用いて文字列類似度SAP-netを実装した。<br>
 出力では、「赤」という文字列に対し、想起されていく文字列と活性値の様子を出力している
 ```Python
@@ -429,7 +432,7 @@ for word, value in results:
     i+=1
 ```
 
-# まとめ
+## まとめ
 一連の出力をすべてまとめたプログラム。<br>
 下記のプログラムで文字列類似度SAP-netから得ることのできる出力をすべて取得している
 ```Python
