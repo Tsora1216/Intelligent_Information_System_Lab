@@ -5,12 +5,12 @@
         <meta charset="UTF-8">
         <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# article: https://ogp.me/ns/article#"></head>
         <meta property="og:type" content="article">
-        <meta property="og:url" content="01_activity.html">
+        <meta property="og:url" content="02_paper_06.html">
         <meta property="og:image" content="https://i.gyazo.com/7f287b1dd7b12f6e97537c8112fcb13c.png">
-        <meta property="og:title" content="[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 研究室での活動記録">
+        <meta property="og:title" content="[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 実験06（SAP-net_ライブラリ化）">
         <meta property="og:description" content="知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避">
         <meta property="og:locale" content="ja">
-        <title>[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 研究室での活動記録</title>
+        <title>[知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避] 実験06（SAP-net_ライブラリ化）</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避">
         <meta name="generator" content="HonKit 3.7.4">
@@ -75,10 +75,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="01_activity_04.html" />
+    <link rel="next" href="01_activity.html" />
     
     
-    <link rel="prev" href="02_paper_06.html" />
+    <link rel="prev" href="02_paper_05.html" />
     
 
     </head>
@@ -199,7 +199,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.6" data-path="02_paper_06.html">
+        <li class="chapter active" data-level="1.2.6" data-path="02_paper_06.html">
             
                 <a href="02_paper_06.html">
             
@@ -217,7 +217,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="01_activity.html">
+        <li class="chapter " data-level="1.3" data-path="01_activity.html">
             
                 <a href="01_activity.html">
             
@@ -422,7 +422,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >研究室での活動記録</a>
+        <a href="." >実験06（SAP-net_ライブラリ化）</a>
     </h1>
 </div>
 
@@ -437,30 +437,94 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="04月の活動"><a name="04月の活動" class="plugin-anchor" href="#04月の活動"><i class="fa fa-link" aria-hidden="true"></i></a><a href="01_activity_04.html">04月の活動</a></h1>
-<p>投稿済み</p>
-<h1 id="05月の活動"><a name="05月の活動" class="plugin-anchor" href="#05月の活動"><i class="fa fa-link" aria-hidden="true"></i></a><a href="01_activity_05.html">05月の活動</a></h1>
-<p>投稿中（↑クリックしてください）</p>
-<h1 id="06月の活動"><a name="06月の活動" class="plugin-anchor" href="#06月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>06月の活動</h1>
-<p>未投稿</p>
-<h1 id="07月の活動"><a name="07月の活動" class="plugin-anchor" href="#07月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>07月の活動</h1>
-<p>未投稿</p>
-<h1 id="08月の活動"><a name="08月の活動" class="plugin-anchor" href="#08月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>08月の活動</h1>
-<p>未投稿</p>
-<h1 id="09月の活動"><a name="09月の活動" class="plugin-anchor" href="#09月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>09月の活動</h1>
-<p>未投稿</p>
-<h1 id="10月の活動"><a name="10月の活動" class="plugin-anchor" href="#10月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>10月の活動</h1>
-<p>未投稿</p>
-<h1 id="11月の活動"><a name="11月の活動" class="plugin-anchor" href="#11月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>11月の活動</h1>
-<p>未投稿</p>
-<h1 id="12月の活動"><a name="12月の活動" class="plugin-anchor" href="#12月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>12月の活動</h1>
-<p>未投稿</p>
-<h1 id="01月の活動"><a name="01月の活動" class="plugin-anchor" href="#01月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>01月の活動</h1>
-<p>未投稿</p>
-<h1 id="02月の活動"><a name="02月の活動" class="plugin-anchor" href="#02月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>02月の活動</h1>
-<p>未投稿</p>
-<h1 id="03月の活動"><a name="03月の活動" class="plugin-anchor" href="#03月の活動"><i class="fa fa-link" aria-hidden="true"></i></a>03月の活動</h1>
-<p>未投稿</p>
+                                <p>この実験は、選択的転移強化学習において転移先の強化学習済み知識が存在する状態を想定した実験である。</p>
+<p>目的は、前回のSAP-netのライブラリ化を行い、転移先のWebotsプログラムに移植できるSAP-netの作成を行うことである。</p>
+<h1 id="ライブラリの作成"><a name="ライブラリの作成" class="plugin-anchor" href="#ライブラリの作成"><i class="fa fa-link" aria-hidden="true"></i></a>ライブラリの作成</h1>
+<p>下記のようにライブラリを作成していく</p>
+<h2 id="initの作成"><a name="initの作成" class="plugin-anchor" href="#initの作成"><i class="fa fa-link" aria-hidden="true"></i></a>initの作成</h2>
+<pre><code>from TakayaSora.SAPnet import *
+</code></pre><h2 id="licenseの作成"><a name="licenseの作成" class="plugin-anchor" href="#licenseの作成"><i class="fa fa-link" aria-hidden="true"></i></a>LICENSEの作成</h2>
+<pre><code>MIT License
+
+Copyright (c) 2023 TakayaSora
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</code></pre><h2 id="readmeの作成"><a name="readmeの作成" class="plugin-anchor" href="#readmeの作成"><i class="fa fa-link" aria-hidden="true"></i></a>READMEの作成</h2>
+<pre><code># TakayaSora
+
+使用できる関数は下記のとおりです。
+
+## データベースのセットアップ
+SQL_SetUp(&quot;database.sqlite&quot;)
+
+## データの取得と表示
+df = SQL_GetData(&quot;database.sqlite&quot;)
+print(df)
+
+## 角度と距離を入力
+angle = float(input(&apos;角度を入力してください: &apos;))
+distance = float(input(&apos;距離を入力してください: &apos;))
+
+## SAP-netにベクトル情報を渡して拡散
+SAP_df = SAP_net(df,angle,distance)
+
+## SAP-netが選んだ知識を出力
+select_knowledge = selection(SAP_df)
+print(SAP_df)
+print(select_knowledge)
+</code></pre><h2 id="setupの作成"><a name="setupの作成" class="plugin-anchor" href="#setupの作成"><i class="fa fa-link" aria-hidden="true"></i></a>Setupの作成</h2>
+<pre><code>from setuptools import setup, find_packages
+
+setup(
+    name=&apos;TakayaSora&apos;,
+    version=&apos;0.1&apos;,
+    packages=find_packages()
+)
+</code></pre><p>上記のファイルでライブラリを作成していく</p>
+<h1 id="ライブラリ化"><a name="ライブラリ化" class="plugin-anchor" href="#ライブラリ化"><i class="fa fa-link" aria-hidden="true"></i></a>ライブラリ化</h1>
+<p>下記のコマンドでライブラリをインストールしていく。</p>
+<pre><code class="lang-cmd">#!pip install git+https://github.com/Tsora1216/TakayaSora
+</code></pre>
+<p>ライブラリを使用したプログラムは下記のとおりである。</p>
+<p>import TakayaSoraを使用する事で、コードが部品化されており、圧倒的に短く、わかりやすくなっていることが分かる。</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> TakayaSora <span class="hljs-keyword">as</span> Sora
+
+<span class="hljs-comment"># データベースのセットアップ</span>
+Sora.SQL_SetUp(<span class="hljs-string">&quot;database.sqlite&quot;</span>)
+
+<span class="hljs-comment"># データの取得と表示</span>
+df = Sora.SQL_GetData(<span class="hljs-string">&quot;database.sqlite&quot;</span>)
+<span class="hljs-built_in">print</span>(df)
+
+<span class="hljs-comment">#角度と距離を入力</span>
+angle = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&apos;角度を入力してください: &apos;</span>))
+distance = <span class="hljs-built_in">float</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&apos;距離を入力してください: &apos;</span>))
+
+<span class="hljs-comment">#SAP-netにベクトル情報を渡して拡散</span>
+SAP_df = Sora.SAP_net(df,angle,distance)
+
+<span class="hljs-comment">#SAP-netが選んだ知識を出力</span>
+select_knowledge = Sora.selection(SAP_df)
+<span class="hljs-built_in">print</span>(SAP_df)
+<span class="hljs-built_in">print</span>(select_knowledge)
+</code></pre>
+<p><img src="https://gyazo.com/3fd301989bfb28c9cc9da42422d75581.png" alt></p>
 
                                 
                                 </section>
@@ -488,12 +552,12 @@
 
             
                 
-                <a href="02_paper_06.html" class="navigation navigation-prev " aria-label="Previous page: 実験06（SAP-net_ライブラリ化）">
+                <a href="02_paper_05.html" class="navigation navigation-prev " aria-label="Previous page: 実験05（SAP-net_アルゴリズム完成-計算不一致）">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="01_activity_04.html" class="navigation navigation-next " aria-label="Next page: ４月の活動">
+                <a href="01_activity.html" class="navigation navigation-next " aria-label="Next page: 研究室での活動記録">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -504,7 +568,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"研究室での活動記録","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.3","depth":1,"next":{"title":"４月の活動","level":"1.3.1","depth":2,"path":"01_activity_04.md","ref":"01_activity_04.md","articles":[]},"previous":{"title":"実験06（SAP-net_ライブラリ化）","level":"1.2.6","depth":2,"path":"02_paper_06.md","ref":"02_paper_06.md","articles":[]},"articles":[{"title":"４月の活動","level":"1.3.1","depth":2,"path":"01_activity_04.md","ref":"01_activity_04.md","articles":[]},{"title":"５月の活動","level":"1.3.2","depth":2,"path":"01_activity_05.md","ref":"01_activity_05.md","articles":[]},{"title":"６月の活動","level":"1.3.3","depth":2,"path":"01_activity_06.md","ref":"01_activity_06.md","articles":[]},{"title":"７月の活動","level":"1.3.4","depth":2,"path":"01_activity_07.md","ref":"01_activity_07.md","articles":[]},{"title":"８月の活動","level":"1.3.5","depth":2,"path":"01_activity_08.md","ref":"01_activity_08.md","articles":[]},{"title":"９月の活動","level":"1.3.6","depth":2,"path":"01_activity_09.md","ref":"01_activity_09.md","articles":[]},{"title":"１０月の活動","level":"1.3.7","depth":2,"path":"01_activity_10.md","ref":"01_activity_10.md","articles":[]},{"title":"１１月の活動","level":"1.3.8","depth":2,"path":"01_activity_11.md","ref":"01_activity_11.md","articles":[]},{"title":"１２月の活動","level":"1.3.9","depth":2,"path":"01_activity_12.md","ref":"01_activity_12.md","articles":[]},{"title":"１月の活動","level":"1.3.10","depth":2,"path":"01_activity_01.md","ref":"01_activity_01.md","articles":[]},{"title":"２月の活動","level":"1.3.11","depth":2,"path":"01_activity_02.md","ref":"01_activity_02.md","articles":[]},{"title":"３月の活動","level":"1.3.12","depth":2,"path":"01_activity_03.md","ref":"01_activity_03.md","articles":[]}],"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"01_activity.md","mtime":"2023-06-12T08:17:57.676Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-19T05:28:13.889Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"実験06（SAP-net_ライブラリ化）","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.2.6","depth":2,"next":{"title":"研究室での活動記録","level":"1.3","depth":1,"path":"01_activity.md","ref":"01_activity.md","articles":[{"title":"４月の活動","level":"1.3.1","depth":2,"path":"01_activity_04.md","ref":"01_activity_04.md","articles":[]},{"title":"５月の活動","level":"1.3.2","depth":2,"path":"01_activity_05.md","ref":"01_activity_05.md","articles":[]},{"title":"６月の活動","level":"1.3.3","depth":2,"path":"01_activity_06.md","ref":"01_activity_06.md","articles":[]},{"title":"７月の活動","level":"1.3.4","depth":2,"path":"01_activity_07.md","ref":"01_activity_07.md","articles":[]},{"title":"８月の活動","level":"1.3.5","depth":2,"path":"01_activity_08.md","ref":"01_activity_08.md","articles":[]},{"title":"９月の活動","level":"1.3.6","depth":2,"path":"01_activity_09.md","ref":"01_activity_09.md","articles":[]},{"title":"１０月の活動","level":"1.3.7","depth":2,"path":"01_activity_10.md","ref":"01_activity_10.md","articles":[]},{"title":"１１月の活動","level":"1.3.8","depth":2,"path":"01_activity_11.md","ref":"01_activity_11.md","articles":[]},{"title":"１２月の活動","level":"1.3.9","depth":2,"path":"01_activity_12.md","ref":"01_activity_12.md","articles":[]},{"title":"１月の活動","level":"1.3.10","depth":2,"path":"01_activity_01.md","ref":"01_activity_01.md","articles":[]},{"title":"２月の活動","level":"1.3.11","depth":2,"path":"01_activity_02.md","ref":"01_activity_02.md","articles":[]},{"title":"３月の活動","level":"1.3.12","depth":2,"path":"01_activity_03.md","ref":"01_activity_03.md","articles":[]}]},"previous":{"title":"実験05（SAP-net_アルゴリズム完成-計算不一致）","level":"1.2.5","depth":2,"path":"02_paper_05.md","ref":"02_paper_05.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_06.md","mtime":"2023-06-19T05:10:45.655Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-19T05:28:13.889Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

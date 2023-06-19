@@ -87,6 +87,8 @@ setup(
 
 ライブラリを使用したプログラムは下記のとおりである。
 
+import TakayaSoraを使用する事で、コードが部品化されており、圧倒的に短く、わかりやすくなっていることが分かる。
+
 ```Python
 import TakayaSora as Sora
 
@@ -109,4 +111,5 @@ select_knowledge = Sora.selection(SAP_df)
 print(SAP_df)
 print(select_knowledge)
 ```
+
 ![](https://gyazo.com/3fd301989bfb28c9cc9da42422d75581.png)
