@@ -212,6 +212,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.2.7" data-path="02_paper_C_01.html">
+            
+                <a href="02_paper_C_01.html">
+            
+                    
+                    論文01（電気学会 電子・情報・システム部門大会）
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -439,24 +452,439 @@
                                 
                                 <p>この実験は、選択的転移強化学習において転移先の強化学習済み知識が存在しない状態で行われる実験である。</p>
 <p>目的は、転移先が用意された場合において、どのように転移が可能かを検討し、基盤となるSAP-netの実現可能性を判断することだ。</p>
-<h2 id="二次元マップをテスト"><a name="二次元マップをテスト" class="plugin-anchor" href="#二次元マップをテスト"><i class="fa fa-link" aria-hidden="true"></i></a>二次元マップをテスト</h2>
-<p>二次元マップで中心にエージェントを仮想的に配置した
-10個のランダムな距離と中心からの角度を生成し、それらを点P群とした
-それらの点P群は距離は0～500cm(5m)で、角度は0～360°の値をとっている
-それらの点P群を二次元マップに書き込んで表示している
-<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2502107/23831501-810d-85e0-c0e5-27f0c06e7b0a.png" alt="a9ce7eb9-e6f0-49bf-a003-e9213a63fcbd.png"></p>
-<p>さらに線を追加して中心からの距離を可視化
-<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2502107/1b748d2e-a9e8-ed38-856f-937cdc0bdb2d.png" alt="6ac57f35-aba0-49af-94ba-014cb3e20464.png"></p>
-<p>情報を保存する必要があることに気づく。
-情報は下記の通りである
-| 知識名       | 角度Θ(°) | 距離r(m) | 
-| ------------ | ---- | ---- | 
-| 直進         | 320  | 4    | 
-| 右寄りの直進 | 340  | 2    | 
-| 直進         | 0    | 1    | 
-| 右寄りの直進 | 20  | 2    | 
-| 直進         | 40    | 4    |</p>
-<h2 id="20230401～20230402の活動"><a name="20230401～20230402の活動" class="plugin-anchor" href="#20230401～20230402の活動"><i class="fa fa-link" aria-hidden="true"></i></a>2023/04/01～2023/04/02の活動</h2>
+<h1 id="ネットワークの作成と可視化"><a name="ネットワークの作成と可視化" class="plugin-anchor" href="#ネットワークの作成と可視化"><i class="fa fa-link" aria-hidden="true"></i></a>ネットワークの作成と可視化</h1>
+<p>まずはネットワークの可視化方法をPythonで試していく</p>
+<pre><code class="lang-Python">%matplotlib inline
+<span class="hljs-keyword">import</span> networkx <span class="hljs-keyword">as</span> nx <span class="hljs-comment"># NetworkXをインポート</span>
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># ネットワーク生成</span>
+G = nx.Graph([(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), (<span class="hljs-number">2</span>, <span class="hljs-number">3</span>), (<span class="hljs-number">3</span>, <span class="hljs-number">1</span>)])
+<span class="hljs-comment"># G = nx.Graph() # 空のグラフを作成する場合</span>
+nx.draw(G, with_labels=<span class="hljs-literal">True</span>) <span class="hljs-comment"># ラベルをTrueにして番号の可視化</span>
+</code></pre>
+<p><img src="https://gyazo.com/6e67efc627ae8a27b7f054ac7861c32b.png" alt></p>
+<p>ノードの追加方法を検証</p>
+<pre><code class="lang-Python">G.add_node(<span class="hljs-number">4</span>)
+nx.draw(G, with_labels=<span class="hljs-literal">True</span>)V
+</code></pre>
+<p><img src="https://gyazo.com/596cabfad99289acecf228b2e98eae61.png" alt></p>
+<p>リンクの追加方法を検証</p>
+<pre><code class="lang-Python">G.add_edge(<span class="hljs-number">1</span>,<span class="hljs-number">4</span>)
+nx.draw(G, with_labels=<span class="hljs-literal">True</span>)
+</code></pre>
+<p><img src="https://gyazo.com/354d73570a42161964671fb07a2eec17.png" alt></p>
+<p>複数ノードと複数リンクの追加方法を検証</p>
+<pre><code class="lang-Python"><span class="hljs-comment"># 複数ノードの追加</span>
+n = [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>]
+G.add_nodes_from(n)
+
+<span class="hljs-comment"># 複数リンクの追加</span>
+e = [(<span class="hljs-number">5</span>,<span class="hljs-number">6</span>), (<span class="hljs-number">3</span>,<span class="hljs-number">7</span>), (<span class="hljs-number">4</span>,<span class="hljs-number">6</span>)]
+G.add_edges_from(e)
+
+nx.draw(G, with_labels=<span class="hljs-literal">True</span>)
+</code></pre>
+<p><img src="https://gyazo.com/2686e62fddc7277c0807fad730311651.png" alt></p>
+<p>ノードの削除方法を検証</p>
+<pre><code class="lang-Python">G.remove_node(<span class="hljs-number">4</span>)
+nx.draw(G, with_labels=<span class="hljs-literal">True</span>)
+</code></pre>
+<p><img src="https://gyazo.com/8ae2c6bcb09e1829bf0f10e0749b63d4.png" alt></p>
+<p>複数リンクの削除方法を検証</p>
+<pre><code class="lang-Python">G.remove_edges_from([(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>), (<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)])
+nx.draw(G, with_labels=<span class="hljs-literal">True</span>)
+</code></pre>
+<p><img src="https://gyazo.com/3cd20ac801a1a9b92208ee72f3a9eb87.png" alt></p>
+<h1 id="画像認識の検証"><a name="画像認識の検証" class="plugin-anchor" href="#画像認識の検証"><i class="fa fa-link" aria-hidden="true"></i></a>画像認識の検証</h1>
+<p>Yoroのパッケージをインストールして階層構造を構築してから下記のプログラムを実行
+画像の表示までできるようになった</p>
+<pre><code class="lang-Python"><span class="hljs-comment"># pillowをインポート</span>
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
+
+<span class="hljs-comment"># 画像パス</span>
+filename = <span class="hljs-string">r&quot;C:\Users\DE\Documents\Github\Intelligent_Information_System_Lab_research\Yoro_test\sample_img\sample_dog.jpg&quot;</span>
+
+<span class="hljs-comment"># Pillowで開く</span>
+im = Image.<span class="hljs-built_in">open</span>(filename)
+
+<span class="hljs-comment"># 表示</span>
+im
+</code></pre>
+<p><img src="https://gyazo.com/c8b54ffbe5152bcb1794dff2be9fd83d.png" alt></p>
+<p>実際に画像を読み取り、Yoroモデルに画像を渡し物体認証してみる</p>
+<pre><code class="lang-Python"><span class="hljs-comment"># pillowをインポート</span>
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
+
+<span class="hljs-comment"># 画像パス</span>
+filename = <span class="hljs-string">r&quot;C:\Users\DE\Documents\Github\Intelligent_Information_System_Lab_research\Yoro_test\yolov5\runs\detect\exp\sample_dog.jpg&quot;</span>
+
+<span class="hljs-comment"># Pillowで開く</span>
+im = Image.<span class="hljs-built_in">open</span>(filename)
+
+<span class="hljs-comment"># 表示</span>
+im
+</code></pre>
+<p><img src="https://gyazo.com/c6d2966e231b6eaa36ff78a8a541bc22.png" alt></p>
+<h1 id="文字列ネットワークの検証"><a name="文字列ネットワークの検証" class="plugin-anchor" href="#文字列ネットワークの検証"><i class="fa fa-link" aria-hidden="true"></i></a>文字列ネットワークの検証</h1>
+<p>下記のプログラムが、文字列ネットワークで作成した仮想SAP-netのプログラムである。</p>
+<h2 id="フォルダ準備"><a name="フォルダ準備" class="plugin-anchor" href="#フォルダ準備"><i class="fa fa-link" aria-hidden="true"></i></a>フォルダ準備</h2>
+<p>文字列ネットワークを作成した際に保存する先のフォルダーを時間軸によって分岐するためのプログラム</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> datetime
+<span class="hljs-comment"># Get current time</span>
+current_time = datetime.datetime.now().strftime(<span class="hljs-string">&quot;%Y%m%d%H%M%S&quot;</span>)
+<span class="hljs-comment"># Create output folder with the current time as part of the name</span>
+folder_name = <span class="hljs-string">f&quot;./Output_<span class="hljs-subst">{current_time}</span>&quot;</span>
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(folder_name):
+    os.makedirs(folder_name)
+</code></pre>
+<p>保存先のパスを生成するためのプログラム</p>
+<pre><code class="lang-Python"><span class="hljs-comment"># 入力</span>
+input_str = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;Please enter string in SAPNet===&gt;&quot;</span>)
+model_file_path = <span class="hljs-string">&apos;../../KITERETU/gw2v160.model&apos;</span>
+
+<span class="hljs-comment"># 出力</span>
+database_path = folder_name + <span class="hljs-string">&apos;/database.sqlite&apos;</span>
+Heatmap_path = folder_name + <span class="hljs-string">&apos;/heatmap.png&apos;</span>
+Network_path = folder_name + <span class="hljs-string">&apos;/network.png&apos;</span>
+GIF_path_100 = folder_name + <span class="hljs-string">&apos;/graph_100.gif&apos;</span>
+GIF_path_1000 = folder_name + <span class="hljs-string">&apos;/graph_1000.gif&apos;</span>
+</code></pre>
+<h2 id="モデル準備"><a name="モデル準備" class="plugin-anchor" href="#モデル準備"><i class="fa fa-link" aria-hidden="true"></i></a>モデル準備</h2>
+<p>作成した学習済みモデルをロードして使用するプログラム</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> gensim.models <span class="hljs-keyword">import</span> Word2Vec
+<span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mpl
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> japanize_matplotlib
+
+<span class="hljs-comment"># 学習済みモデルのロード</span>
+model = Word2Vec.load(model_file_path)
+</code></pre>
+<h2 id="データベース準備"><a name="データベース準備" class="plugin-anchor" href="#データベース準備"><i class="fa fa-link" aria-hidden="true"></i></a>データベース準備</h2>
+<p>データベースを用意して、29万字の文字列を持ち、それらの活性化の値を保存するプログラム</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">from</span> gensim.models <span class="hljs-keyword">import</span> Word2Vec
+<span class="hljs-keyword">import</span> sqlite3
+
+
+<span class="hljs-comment"># データベースに接続し、カーソルを作成する</span>
+conn = sqlite3.connect(database_path)
+cursor = conn.cursor()
+
+<span class="hljs-comment"># テーブルが存在しない場合のみ作成する</span>
+cursor.execute(<span class="hljs-string">&apos;&apos;&apos;CREATE TABLE IF NOT EXISTS words (word TEXT, value REAL)&apos;&apos;&apos;</span>)
+
+<span class="hljs-comment"># モデル内のすべての単語と値をデータベースに保存する</span>
+<span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> model.wv.key_to_index:
+    cursor.execute(<span class="hljs-string">&apos;&apos;&apos;INSERT INTO words VALUES (?, ?)&apos;&apos;&apos;</span>, (word, <span class="hljs-number">0.000000</span>))
+
+<span class="hljs-comment"># コミットして変更を確定する</span>
+conn.commit()
+
+<span class="hljs-comment"># データベース接続を閉じる</span>
+conn.close()
+</code></pre>
+<p>作成されたデータベースに対して、Wordや値を保存するテーブルを作成するプログラム</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> sqlite3
+
+<span class="hljs-comment"># データベースに接続する</span>
+conn = sqlite3.connect(database_path)
+cursor = conn.cursor()
+df = pd.read_sql_query(<span class="hljs-string">&quot;SELECT * FROM words&quot;</span>, conn)
+
+<span class="hljs-comment"># キーを「word」列に変更する</span>
+df = df.set_index(<span class="hljs-string">&apos;word&apos;</span>)
+<span class="hljs-built_in">print</span>(df)
+
+<span class="hljs-comment"># データベース接続を閉じる</span>
+conn.close()
+</code></pre>
+<p><img src="https://gyazo.com/d052d7d97e8bfecfe3e0146bcbbafb24.png" alt></p>
+<h2 id="類似文字生成処理"><a name="類似文字生成処理" class="plugin-anchor" href="#類似文字生成処理"><i class="fa fa-link" aria-hidden="true"></i></a>類似文字生成処理</h2>
+<p>Word2Vecで作成されたモデルの全長を見て、類似の単語を算出</p>
+<pre><code class="lang-Python"><span class="hljs-comment"># モデル内に登録されている単語リストの長さをlen関数で見る（＝単語数）</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(model.wv.key_to_index))
+
+<span class="hljs-comment"># 似ている単語TOP7を書き出す</span>
+out = model.wv.most_similar(positive=[input_str], topn=<span class="hljs-number">10</span>)
+<span class="hljs-built_in">print</span>(out)
+</code></pre>
+<p><img src="https://gyazo.com/a291823d20ee815a1c02e980467a5bad.png" alt></p>
+<p>算出された類似語を抽出</p>
+<pre><code class="lang-Python"><span class="hljs-built_in">print</span>(out)
+
+<span class="hljs-comment">#AtCoderでよく使う辞書処理を使って県と数値を取り出す</span>
+pre=[]
+pre.append(input_str)
+<span class="hljs-keyword">for</span> prefecture, value <span class="hljs-keyword">in</span> out:
+    <span class="hljs-built_in">print</span>(prefecture, value)
+    pre.append(prefecture)
+</code></pre>
+<p><img src="https://gyazo.com/c2fb0dac766f610c872a77020944ad03.png" alt></p>
+<p>取り出した文字列と値を使用して、dataframeを作成し、クロステーブルを生成</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+df = pd.crosstab(pre, pre, rownames=[<span class="hljs-string">&apos;X&apos;</span>], colnames=[<span class="hljs-string">&apos;Y&apos;</span>])
+df
+</code></pre>
+<p><img src="https://gyazo.com/4c2e4f96ab22bdbff1254151d9e9758f.png" alt></p>
+<p>同じインデックスを持つ値には、0を格納したい。<br>
+かつ、影響度が小さすぎるものは切り落とす必要がある。<br>
+そのため、1 &gt; x &gt;=0.6の活性値を持つ文字列のみ活性化を行った</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> pre:
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> pre:
+        <span class="hljs-comment">#0を除外する処理を入れていないので計算数がその分多い</span>
+        <span class="hljs-keyword">if</span> model.wv.similarity(i,j) &gt;= <span class="hljs-number">1.0</span>:
+            df.loc[i,j]=<span class="hljs-number">0.0</span>
+        <span class="hljs-keyword">elif</span> model.wv.similarity(i,j) &gt;= <span class="hljs-number">0.6</span>:
+            df.loc[i,j]=model.wv.similarity(i,j)
+        <span class="hljs-keyword">else</span>:
+            df.loc[i,j]=<span class="hljs-number">0</span>
+        <span class="hljs-comment">#print(df.loc[&apos;Bob&apos;, &apos;age&apos;])</span>
+        <span class="hljs-comment">#df.iloc[1,0]</span>
+df
+</code></pre>
+<p><img src="https://gyazo.com/3659de2ea5be647ad3d0ea8f9918de87.png" alt></p>
+<p>上記の文字列ネットワークにより、想起された類語をヒートマップで可視化するプログラム<br>
+ヒートマップで可視化することにより、それぞれの関連性の高さが可視化された。</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib <span class="hljs-keyword">as</span> mpl
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> japanize_matplotlib
+
+
+plt.figure()
+plt.title(<span class="hljs-string">&quot;入力文字列「{}」により想起された文字列の類似度ヒートマップ&quot;</span>.<span class="hljs-built_in">format</span>(input_str))
+sns.heatmap(df,cmap=<span class="hljs-string">&quot;winter&quot;</span>)
+plt.savefig(Heatmap_path)
+</code></pre>
+<p><img src="https://gyazo.com/ba5b8e93f806f255a0b242105642ec65.png" alt></p>
+<p>上記の文字列ネットワークにより、想起された類語を全網羅ネットワークで可視化するプログラム<br>
+全網羅ネットワークで可視化することにより、全体でどのような繋がりがあるか可視化された<br>
+ノードの大きさは接続されたすべての単語への影響度の大きさを表している<br>
+辺の太さは接続された両端の単語の類似度の高さを表している</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> networkx <span class="hljs-keyword">as</span> nx
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> japanize_matplotlib
+
+<span class="hljs-comment"># ネットワークグラフの作成</span>
+G = nx.from_pandas_adjacency(df, create_using=nx.Graph)
+
+<span class="hljs-comment"># グラフの描画</span>
+plt.figure(figsize=(<span class="hljs-built_in">len</span>(input_str)+<span class="hljs-number">8</span>, <span class="hljs-built_in">len</span>(input_str)+<span class="hljs-number">6</span>))
+pos = nx.spring_layout(G)  <span class="hljs-comment"># ノードの位置を設定</span>
+weights = nx.get_edge_attributes(G, <span class="hljs-string">&apos;weight&apos;</span>)
+
+<span class="hljs-comment"># 辺の太さを重みに応じて調整</span>
+max_weight = <span class="hljs-built_in">max</span>(weights.values())
+edge_widths = [(<span class="hljs-number">6</span> * (<span class="hljs-number">1</span> - weights[edge])) ** <span class="hljs-number">2</span> <span class="hljs-keyword">for</span> edge <span class="hljs-keyword">in</span> G.edges()]
+
+<span class="hljs-comment"># ノードの太さを重みに応じて調整</span>
+node_sizes = [<span class="hljs-number">50</span> + <span class="hljs-number">150</span> * G.degree(node) <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> G.nodes()]
+
+<span class="hljs-comment"># グラフを描画</span>
+japanize_matplotlib.japanize()
+nx.draw_networkx_nodes(G, pos, node_color=<span class="hljs-string">&apos;lightblue&apos;</span>, node_size=node_sizes)
+nx.draw_networkx_edges(G, pos, width=edge_widths, edge_color=<span class="hljs-string">&apos;black&apos;</span>)
+nx.draw_networkx_labels(G, pos, font_family=<span class="hljs-string">&apos;IPAexGothic&apos;</span>, font_color=<span class="hljs-string">&apos;black&apos;</span>, font_size=<span class="hljs-number">10</span>)
+plt.title(<span class="hljs-string">&apos;入力文字列「{}」により想起された文字列の類似度ネットワーク&apos;</span>.<span class="hljs-built_in">format</span>(input_str))
+plt.axis(<span class="hljs-string">&apos;off&apos;</span>)
+
+<span class="hljs-comment"># グラフを出力</span>
+plt.savefig(Network_path)
+</code></pre>
+<p><img src="https://gyazo.com/0558ef4ca104fe8cb7d6def4af6921a5.png" alt></p>
+<h2 id="sap-net処理"><a name="sap-net処理" class="plugin-anchor" href="#sap-net処理"><i class="fa fa-link" aria-hidden="true"></i></a>SAP-net処理</h2>
+<p>上記の類似度ネットワークを用いて文字列類似度SAP-netを実装した。<br>
+出力では、「赤」という文字列に対し、想起されていく文字列と活性値の様子を出力している</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> sqlite3
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image  <span class="hljs-comment"># Import the PIL module</span>
+<span class="hljs-keyword">import</span> io
+<span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> HTML
+<span class="hljs-keyword">from</span> IPython.display <span class="hljs-keyword">import</span> display
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image  <span class="hljs-comment"># Import the PIL module</span>
+<span class="hljs-keyword">import</span> glob  <span class="hljs-comment"># Import the glob module</span>
+
+<span class="hljs-comment"># Connect to the database</span>
+conn = sqlite3.connect(database_path)
+cursor = conn.cursor()
+ans = []
+ans.append([input_str])
+<span class="hljs-built_in">print</span>(ans)
+images = []
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):
+    ans.append([])
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(ans[i])):
+        out = model.wv.most_similar(positive=[ans[i][j]], topn=<span class="hljs-number">3</span>)
+        <span class="hljs-keyword">for</span> prefecture, value <span class="hljs-keyword">in</span> out:
+            ans[i + <span class="hljs-number">1</span>].append(prefecture)
+            <span class="hljs-comment"># Execute SQL query to get the numerical value</span>
+            cursor.execute(<span class="hljs-string">&quot;SELECT value FROM words WHERE word = ?&quot;</span>, (prefecture,))
+            result = cursor.fetchone()[<span class="hljs-number">0</span>]
+            new_result = result + value
+            val = <span class="hljs-string">&apos;{:6f}&apos;</span>.<span class="hljs-built_in">format</span>(new_result)
+            cursor.execute(<span class="hljs-string">&quot;UPDATE words SET value = ? WHERE word = ?&quot;</span>, (val, prefecture))
+        <span class="hljs-comment"># Execute SQL query to get the result with similarity threshold of 0.5</span>
+        cursor.execute(<span class="hljs-string">&quot;SELECT word, value FROM words WHERE value &gt; 0.5 ORDER BY value DESC LIMIT 10&quot;</span>)
+        results = cursor.fetchall()
+        words = [result[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results]
+        values = [result[<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results]
+        <span class="hljs-built_in">print</span>(words)
+        <span class="hljs-built_in">print</span>(values)
+        <span class="hljs-comment"># Create the graph</span>
+        plt.bar(words, values)  <span class="hljs-comment"># Display words on the x-axis</span>
+        plt.xlabel(<span class="hljs-string">&apos;Word&apos;</span>)
+        plt.ylabel(<span class="hljs-string">&apos;Value&apos;</span>)
+        <span class="hljs-comment"># Create a PIL Image object from the plot</span>
+        buf = io.BytesIO()
+        plt.savefig(buf, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;png&apos;</span>)
+        buf.seek(<span class="hljs-number">0</span>)
+        im = Image.<span class="hljs-built_in">open</span>(buf)
+        images.append(im)
+        plt.clf()  <span class="hljs-comment"># Clear the figure for the next iteration</span>
+
+<span class="hljs-comment"># Save the frames as a GIF image</span>
+images[<span class="hljs-number">0</span>].save(GIF_path_100, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;GIF&apos;</span>, append_images=images[<span class="hljs-number">1</span>:], save_all=<span class="hljs-literal">True</span>, duration=<span class="hljs-number">100</span>, loop=<span class="hljs-number">0</span>)
+images[<span class="hljs-number">0</span>].save(GIF_path_1000, <span class="hljs-built_in">format</span>=<span class="hljs-string">&apos;GIF&apos;</span>, append_images=images[<span class="hljs-number">1</span>:], save_all=<span class="hljs-literal">True</span>, duration=<span class="hljs-number">1000</span>, loop=<span class="hljs-number">0</span>)
+
+<span class="hljs-comment"># Commit changes and close the database connection</span>
+conn.commit()
+conn.close()
+</code></pre>
+<p><img src="https://gyazo.com/68106c30e2895f42bf431916eb1881a5.png" alt></p>
+<p>上記の文字列類似度SAP-netを実装の様子をリアルタイムで監視すべく、縦棒グラフのGIF画像を生成し、視認性を高めている</p>
+<pre><code class="lang-Python"><span class="hljs-keyword">import</span> base64
+<span class="hljs-keyword">from</span> IPython <span class="hljs-keyword">import</span> display <span class="hljs-keyword">as</span> dd <span class="hljs-comment"># display関数と名前が被るので別名にしておきます。</span>
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(GIF_path_100, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
+    b64 = base64.b64encode(f.read()).decode(<span class="hljs-string">&quot;ascii&quot;</span>)
+
+display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gif;base64,<span class="hljs-subst">{b64}</span>&quot; /&gt;&apos;</span>))
+</code></pre>
+<p><img src="image/graph_1_1.gif" alt></p>
+<pre><code class="lang-Python"><span class="hljs-comment">#出力A</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;入力文字列「{}」&quot;</span>.<span class="hljs-built_in">format</span>(input_str))
+<span class="hljs-keyword">import</span> sqlite3
+
+<span class="hljs-comment">#出力B</span>
+<span class="hljs-comment"># データベースに接続する</span>
+conn = sqlite3.connect(database_path)
+<span class="hljs-comment"># クエリを実行する</span>
+cur = conn.cursor()
+cur.execute(<span class="hljs-string">&quot;SELECT word, value FROM words ORDER BY value DESC LIMIT 10&quot;</span>)
+<span class="hljs-comment"># 結果を取得する</span>
+results = cur.fetchall()
+<span class="hljs-comment"># 結果を出力する</span>
+<span class="hljs-keyword">for</span> word, value <span class="hljs-keyword">in</span> results:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;{:7s} \t{:.6f}&quot;</span>.<span class="hljs-built_in">format</span>(word, value))
+<span class="hljs-comment"># データベースを切断する</span>
+conn.close()
+
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-comment"># 画像ファイルを読み込む</span>
+Heatmap_img = plt.imread(Heatmap_path)
+Network_img = plt.imread(Network_path)
+
+<span class="hljs-comment"># グラフを描画</span>
+plt.figure(figsize=(<span class="hljs-number">20</span>, <span class="hljs-number">15</span>))
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+plt.imshow(Heatmap_img)
+
+plt.figure(figsize=(<span class="hljs-number">25</span>, <span class="hljs-number">20</span>))
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+plt.imshow(Network_img)
+plt.show()
+
+<span class="hljs-comment">#出力E</span>
+<span class="hljs-keyword">import</span> base64
+<span class="hljs-keyword">from</span> IPython <span class="hljs-keyword">import</span> display <span class="hljs-keyword">as</span> dd <span class="hljs-comment"># display関数と名前が被るので別名にしておきます。</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(GIF_path_100, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
+    b64 = base64.b64encode(f.read()).decode(<span class="hljs-string">&quot;ascii&quot;</span>)
+display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gif;base64,<span class="hljs-subst">{b64}</span>&quot; /&gt;&apos;</span>))
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(GIF_path_1000, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
+    b64 = base64.b64encode(f.read()).decode(<span class="hljs-string">&quot;ascii&quot;</span>)
+display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gif;base64,<span class="hljs-subst">{b64}</span>&quot; /&gt;&apos;</span>))
+
+<span class="hljs-comment"># 結果を出力する</span>
+i=<span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> word, value <span class="hljs-keyword">in</span> results:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;{}位\t-&gt; {:7s} \t{:.6f}&quot;</span>.<span class="hljs-built_in">format</span>(i,word, value))
+    i+=<span class="hljs-number">1</span>
+</code></pre>
+<h2 id="まとめ"><a name="まとめ" class="plugin-anchor" href="#まとめ"><i class="fa fa-link" aria-hidden="true"></i></a>まとめ</h2>
+<p>一連の出力をすべてまとめたプログラム。<br>
+下記のプログラムで文字列類似度SAP-netから得ることのできる出力をすべて取得している</p>
+<pre><code class="lang-Python"><span class="hljs-comment">#出力A</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;入力文字列「{}」&quot;</span>.<span class="hljs-built_in">format</span>(input_str))
+<span class="hljs-keyword">import</span> sqlite3
+
+<span class="hljs-comment">#出力B</span>
+<span class="hljs-comment"># データベースに接続する</span>
+conn = sqlite3.connect(database_path)
+<span class="hljs-comment"># クエリを実行する</span>
+cur = conn.cursor()
+cur.execute(<span class="hljs-string">&quot;SELECT word, value FROM words ORDER BY value DESC LIMIT 10&quot;</span>)
+<span class="hljs-comment"># 結果を取得する</span>
+results = cur.fetchall()
+<span class="hljs-comment"># 結果を出力する</span>
+<span class="hljs-keyword">for</span> word, value <span class="hljs-keyword">in</span> results:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;{:7s} \t{:.6f}&quot;</span>.<span class="hljs-built_in">format</span>(word, value))
+<span class="hljs-comment"># データベースを切断する</span>
+conn.close()
+
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-comment"># 画像ファイルを読み込む</span>
+Heatmap_img = plt.imread(Heatmap_path)
+Network_img = plt.imread(Network_path)
+
+<span class="hljs-comment"># グラフを描画</span>
+plt.figure(figsize=(<span class="hljs-number">20</span>, <span class="hljs-number">15</span>))
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+plt.imshow(Heatmap_img)
+
+plt.figure(figsize=(<span class="hljs-number">25</span>, <span class="hljs-number">20</span>))
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+plt.imshow(Network_img)
+plt.show()
+
+<span class="hljs-comment">#出力E</span>
+<span class="hljs-keyword">import</span> base64
+<span class="hljs-keyword">from</span> IPython <span class="hljs-keyword">import</span> display <span class="hljs-keyword">as</span> dd <span class="hljs-comment"># display関数と名前が被るので別名にしておきます。</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(GIF_path_100, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
+    b64 = base64.b64encode(f.read()).decode(<span class="hljs-string">&quot;ascii&quot;</span>)
+display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gif;base64,<span class="hljs-subst">{b64}</span>&quot; /&gt;&apos;</span>))
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(GIF_path_1000, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:
+    b64 = base64.b64encode(f.read()).decode(<span class="hljs-string">&quot;ascii&quot;</span>)
+display(dd.HTML(<span class="hljs-string">f&apos;&lt;img src=&quot;data:image/gif;base64,<span class="hljs-subst">{b64}</span>&quot; /&gt;&apos;</span>))
+
+<span class="hljs-comment"># 結果を出力する</span>
+i=<span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> word, value <span class="hljs-keyword">in</span> results:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;{}位\t-&gt; {:7s} \t{:.6f}&quot;</span>.<span class="hljs-built_in">format</span>(i,word, value))
+    i+=<span class="hljs-number">1</span>
+</code></pre>
+<p><img src="https://gyazo.com/89411b86e44bc5c0f0922bfc87e5ef68.png" alt>
+<img src="https://gyazo.com/fe8c425dcec709ced5673badfbe033a4.png" alt>
+<img src="image/graph_1_1.gif" alt>
+<img src="image/graph_1_2.gif" alt>
+<img src="https://gyazo.com/ed9945b62a58bb45689eb2f7f4087f54.png" alt></p>
 
                                 
                                 </section>
@@ -500,7 +928,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"実験01（知識無しのSAP-netTest）","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.2.1","depth":2,"next":{"title":"実験02（知識有りのSAP-netTest）","level":"1.2.2","depth":2,"path":"02_paper_02.md","ref":"02_paper_02.md","articles":[]},"previous":{"title":"研究・論文","level":"1.2","depth":1,"path":"02_paper.md","ref":"02_paper.md","articles":[{"title":"実験01（知識無しのSAP-netTest）","level":"1.2.1","depth":2,"path":"02_paper_01.md","ref":"02_paper_01.md","articles":[]},{"title":"実験02（知識有りのSAP-netTest）","level":"1.2.2","depth":2,"path":"02_paper_02.md","ref":"02_paper_02.md","articles":[]},{"title":"実験03（知識有りのSAP-net）","level":"1.2.3","depth":2,"path":"02_paper_03.md","ref":"02_paper_03.md","articles":[]},{"title":"実験04（SAP-net_非完全版-値保存不可）","level":"1.2.4","depth":2,"path":"02_paper_04.md","ref":"02_paper_04.md","articles":[]},{"title":"実験05（SAP-net_アルゴリズム完成-計算不一致）","level":"1.2.5","depth":2,"path":"02_paper_05.md","ref":"02_paper_05.md","articles":[]},{"title":"実験06（SAP-net_ライブラリ化）","level":"1.2.6","depth":2,"path":"02_paper_06.md","ref":"02_paper_06.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_01.md","mtime":"2023-06-14T12:53:37.646Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-19T05:28:13.889Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"実験01（知識無しのSAP-netTest）","tags":"データサイエンティスト","author":"Tsora1216","slide":false,"level":"1.2.1","depth":2,"next":{"title":"実験02（知識有りのSAP-netTest）","level":"1.2.2","depth":2,"path":"02_paper_02.md","ref":"02_paper_02.md","articles":[]},"previous":{"title":"研究・論文","level":"1.2","depth":1,"path":"02_paper.md","ref":"02_paper.md","articles":[{"title":"実験01（知識無しのSAP-netTest）","level":"1.2.1","depth":2,"path":"02_paper_01.md","ref":"02_paper_01.md","articles":[]},{"title":"実験02（知識有りのSAP-netTest）","level":"1.2.2","depth":2,"path":"02_paper_02.md","ref":"02_paper_02.md","articles":[]},{"title":"実験03（知識有りのSAP-net）","level":"1.2.3","depth":2,"path":"02_paper_03.md","ref":"02_paper_03.md","articles":[]},{"title":"実験04（SAP-net_非完全版-値保存不可）","level":"1.2.4","depth":2,"path":"02_paper_04.md","ref":"02_paper_04.md","articles":[]},{"title":"実験05（SAP-net_アルゴリズム完成-計算不一致）","level":"1.2.5","depth":2,"path":"02_paper_05.md","ref":"02_paper_05.md","articles":[]},{"title":"実験06（SAP-net_ライブラリ化）","level":"1.2.6","depth":2,"path":"02_paper_06.md","ref":"02_paper_06.md","articles":[]},{"title":"論文01（電気学会 電子・情報・システム部門大会）","level":"1.2.7","depth":2,"path":"02_paper_C_01.md","ref":"02_paper_C_01.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避","language":"ja","gitbook":"*","description":"知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避"},"file":{"path":"02_paper_01.md","mtime":"2023-06-19T07:43:58.087Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-19T08:05:52.914Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
