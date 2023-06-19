@@ -1,82 +1,79 @@
-﻿
+﻿![](./image/02_paper_C_01_01.jpg)
+
+![](./image/02_paper_C_01_02.jpg)
 
 
-
-
+# タイトル
 知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避
 
-高矢　空<sup>＊</sup>　　河野　仁　　須賀　哉斗　　鳥谷部　悠希（東京電機大学）</sup> 
-池　勇勳（北陸先端科学技術大学院大学）　　藤井　浩光（千葉工業大学）
+# チーム
+高矢　空<sup>＊</sup>　　河野　仁　　須賀　哉斗　　鳥谷部　悠希（東京電機大学）</sup> <br>
+池　勇勳（北陸先端科学技術大学院大学）　　藤井　浩光（千葉工業大学）<br>
 鈴木　剛（東京電機大学）
 
-Dynamic Obstacle Avoidance by Mobile Robot Using Transfer Reinforcement Learning
+# Title
+Dynamic Obstacle Avoidance by Mobile Robot Using Transfer Reinforcement Learning with Knowledge Selection
 
-with Knowledge Selection
+# Team
+Takaya Sora<sup>＊</sup>, Kono Hitoshi, Suga Kanato, Toriyabe Yuki, (Tokyo Denki University) <br>
+Ji Yonghoon, (Japan Advanced Institute of Science and Technology) <br>
+Fujii Hiromitsu, (Chiba Institute of Technology),<br>
+Suzuki Tsuyoshi, (Tokyo Denki University)
 
-Takaya Sora<sup>＊</sup>, Kono Hitoshi, Suga Kanato, Toriyabe Yuki, (Tokyo Denki University) 
-Ji Yonghoon, (Japan Advanced Institute of Science and Technology) 
-Fujii Hiromitsu, (Chiba Institute of Technology),
-
-` `Suzuki Tsuyoshi, (Tokyo Denki University)
-
+# introduction
 In recent years, machine learning technologies have been actively implemented in society. Especially technologies such as reinforcement learning and transfer learning are being implemented in intelligent robot systems. The authors have proposed knowledge-selective transfer reinforcement learning based on the spreading activation model, which is a knowledge in the field of cognitive science. In past research, although static obstacle avoidance has been achieved in mobile robots with knowledge-selective transfer reinforcement learning, dynamic obstacle avoidance has not been investigated. In this paper, it is realized that dynamic obstacle avoidance by tuning the hyper-parameters of transfer reinforcement learning with knowledge selection.
 
-キーワード：転移学習，強化学習，知識選択，活性化拡散モデル
+# キーワード
+転移学習，強化学習，知識選択，活性化拡散モデル
 
-(Transfer learning, reinforcement learning, knowledge selection, spreading activation model)
+# keyword
+Transfer learning, reinforcement learning, knowledge selection, spreading activation model
 
-
-<a name="_hlk137479992"></a>1．　緒言
+# 1．緒言
 
 <a name="_hlk137757321"></a>近年，自動運転技術の進展により，利用者が運転の負担から解放され，交通の安全性と効率性が向上する可能性が高まりつつある．自動運転車は機械学習技術を駆使して，リアルタイムの状況判断や障害物検知，交通ルールの遵守などを行い，自律的な運転を実現する．しかし，自動運転車が直面する課題の一つとして，動的な障害物の回避がある．現行の自動運転技術では静的な障害物への対応は従来の経路計画手法などで適応可能であるが， 動的な障害物の予測と回避は依然として課題とされている．このような課題に対して著者らは，知識選択型転移強化学習を用いた移動ロボットにおける動的障害物回避の実現を提案している<sup>(1) (2)</sup>．
 
 著者らの従来の研究においても同様に自動運転シニアカーにおける静止障害物の回避は実現しているが，動的障害部の回避は実現出来ていない．そこで，本研究では，知識選択型転移強化学習を用いた移動ロボットによる動的障害物回避について基礎的な検討と実験を行ったので報告する．知識選択型転移強化学習のハイパーパラメータを調整することで，動的障害物の回避が実現できることを確認し，知識選択型転移強化学習は，過去の学習経験を転移させることで学習速度の向上や新しい環境への適応度の向上を図る手法であることを示す． 
 
-2．　提案手法
+# 2．提案手法
 
-〈2･1〉	強化学習と転移学習**　　
+## 〈2･1〉	強化学習と転移学習**　　
 
 本研究では強化学習に多くの研究で用いられているQ学習を用いる<sup>(3)</sup>．強化学習は，エージェントが試行錯誤的に環境を探査し，得られた報酬情報を基に報酬を最大化するような行動を学習するアルゴリズムである．そこで獲得される情報はエージェントが観測可能な状態に対する行動の行動価値であり，それらの情報が格納されているものを方策や行動価値関数などと呼ぶ．近年では，方策や行動価値関数を他のエージェントや他のタスクで再利用する手法が議論されており，転移学習と呼ばれる手法である．本研究では強化学習における転移学習を転移強化学習と呼び，Taylorらの転移強化学習手法（価値関数転移）を用いる<sup>(4)</sup>．価値関数転移は，転移元であるSource taskにて強化学習した行動価値関数を転移先であるTarget taskのエージェントが再利用して再学習を行い，Target taskという新たな環境やタスクに行動価値関数を適合させる学習を行う．これにより，Target taskにおける学習速度の改善や，学習初期からの高パフォーマンスを実現する．
 
-〈2･2〉	知識選択手法SAP-net**　　
+## 〈2･2〉	知識選択手法SAP-net**　　
 
 SAP-net (Spreading Activation Policy Network)とは，Konoらが開発した知識選択型の転移学習手法である(1)．転移学習前の手続きとして，予め学習した複数の強化学習の方策や行動価値関数をそれらの接続関係や距離を定義したグラフで構成し保存する（図1）．また，それらの方策や行動価値関数には活性値というパラメータを付与されている．強化学習エージェントやロボットにおけるセンサ入力などの刺激が入力されると，その刺激に対応した方策や行動価値関数の活性値が活性化する．活性化した値はグラフ上で接続された他の方策や行動価値関数にも拡散される．これにより，各方策や行動価値関数の活性値を閾値で選択し，これを想起と呼ぶ．想起された方策や行動価値関数を基に強化学習エージェントやロボットは転移学習を行う．さらに，活性値は時間に比例して減衰するプロセスもSAP-netに実装されており，時間経過に対する活性値の累積を抑制する効果がある．
 
-〈2･3〉	ハイパーパラメータチューニング　　
+![](./image/02_paper_C_01_03.png)
+図 1　SAP-netの概念図
+
+## 〈2･3〉	ハイパーパラメータチューニング　　
 
 先述のSAP-net(Spreading Activation Policy Network)では，移動ロボットに実装されたケースにおいて，移動ロボットが静的障害物を回避するような検証はなされている<sup>(2)</sup>．しかし，本研究ではSAP-netにグラフ構造を調整し，刺激となる入力値を調整することで，動的障害物の回避も可能になることを確認する．
 
 本研究では，知識選択型の転移学習モデルにより，強化学習した知識を選択し，ハイパーパラメータを調整することで動的障害物をよける手法の提案を行う．
 
-3．　知識選択実験
+# 3．知識選択実験
 
-〈3･1〉実験目的・条件　　
+## 〈3･1〉実験目的・条件　　
 
 本提案手法を用いて移動ロボットによる動的障害物回避の実現を評価するために物理演算シミュレータ内に構築した．物理演算シミュレータにはCyberbotics社製のWebots 2023aを使用し，図2のような環境を構築する．ロボットは初期座標として図2のように配置され，障害物配置は計5種類の環境でそれぞれ強化学習を行い，これがSource taskとなる．障害物の先にはゴールエリアが設定され，報酬がロボットに与えられる．また，障害物や壁に接近すると負の報酬が与えられるように設定されている．ロボットの行動は直進と後退，右旋回，左旋回の4種類の行動を選択可能となっている．
 
+![](./image/02_paper_C_01_04.png)
+図 2　構築したWebotsの環境
+
 本実験におけるSAP-netの構成としては，Source taskで獲得した5つの行動価値関数に，ロボットの初期座標から見た障害物の方向と距離(r， θ)をラベルとして付しておき，各知識の持つ角度と距離をベクトルとする．例えば，行動価値関数1の持つ角度をθ1，距離をr1と置き，行動価値関数2の持つ角度をθ2，距離をr2と置きいたとき二つの距離ベクト本実験におけるSAP-netの構成としては，Source task
 
-![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.001.png)
-
-図 1　SAP-netの概念図
-
-![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.002.png)
-
-図 2　構築したWebotsの環境
 
 で獲得した5つの行動価値関数に，ロボットの初期座標から見た障害物の方向と距離(r， θ)をラベルとして付しておき，各知識の持つ角度と距離をベクトルとする．例えば，行動価値関数1の持つ角度をθ1，距離をr1と置き，行動価値関数2の持つ角度をθ2，距離をr2と置きいたとき二つの距離ベクトルのユークリッド距離を求める．これにより，各行動価値関数間のグラフ上における距離を算出する．さらに，各行動価値関数の持つ角度と距離と，エージェントが行動中に取得する障害物までの角度と距離を比較することで活性値の活性化を行う値として用いる．さらに求めたユークリッド距離の最大値を使用して正規化を行う．ユークリッド距離の最大値をDmaxとする．ある行動価値関数間の距離をDと置く．次式により正規化距離Dnormを求めることで行動価値関数も持つラベル間距離を0から1の範囲に収めることが出来る．
 
-Dnorm= DDmax　………………………<a name="_hlk137747656"></a>………………………(1)
+Dnorm= D / Dmax　………………………<a name="_hlk137747656"></a>………………………(1)
 
 このラベル間距離の正規化は，異なるスケールの距離値を比較しやすくしている．また，これらの計算値がどのような値であるかを比較しやすくするために，図3のようなヒートマップを作製した．なお，図3では図2における①から⑤までの障害物配置で学習した行動価値関数のラベルとしてユーザインタフェース側で認識しやすいよう次のような表示ラベルを用いている．
 
-![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.003.png) 
-
+![](./image/02_paper_C_01_05.png)
 図 3 学習済行動価値関数のラベル間類似度ヒートマップ
-
-![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.004.png)
-
-図 4知識ベクトルの類似度ネットワーク
 
 - 障害物配置①：直進
 - 障害物配置②：右寄りの直進
@@ -88,52 +85,52 @@ Dnorm= DDmax　………………………<a name="_hlk137747656"></a>………�
 
 次に，各知識の類似度を求めるため，距離と角度の点P群を二次元マップにプロットした．次に，プロットした知識のベクトルとエージェントを線で結ぶことで，障害物への距離を図４のように可視化した．
 
-図４に示した類似度ネットワークでは，強化学習で得た行動価値関数の位置と行動のラベルが1つの図にまとまっ![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.005.png) 
+![](./image/02_paper_C_01_06.png)
+図 4知識ベクトルの類似度ネットワーク
 
+図４に示した類似度ネットワークでは，強化学習で得た行動価値関数の位置と行動のラベルが1つの図にまとまっている．次に，図5のようなネットワーク図も作成した．このネットワーク図では，知識（行動価値関数）間のつながりや活性化の際の値の伝搬がどのように行われていくのかが一目で分かるようになっている．よって，つながりの太さは類似度の高さに比例するため，活性値も高くなる．
+
+
+![](./image/02_paper_C_01_07.png)
 図 5 実験に使用したSAP-net
-
-ている．次に，図5のようなネットワーク図も作成した．このネットワーク図では，知識（行動価値関数）間のつながりや活性化の際の値の伝搬がどのように行われていくのかが一目で分かるようになっている．よって，つながりの太さは類似度の高さに比例するため，活性値も高くなる．
 
 これらのシステムを用いてTarget taskでは，図2に示した障害物は障害物配置の①から⑤に移動しながらロボットがゴールに向かって移動する実験を行い，動的障害物配置の回避が発現するような知識選択がなされるか評価する．Target taskではロボットが10行動毎にセンサから障害物までの方向と距離(r， θ)を取得し，SAP-netによる知識選択を行い選択された行動価値関数による転移学習で行動を行う．本実験では，提案システムの基礎的検討であるため，Target taskを1エピソード分実行する．
 
 Source taskとTarget task共に，強化学習のパラメータとして学習率α=0.5，割引率γ=0.9，行動選択関数にはボルツマン選択を用いており温度定数 T=0.1で実験を行う．学習エピソード数は各障害物配置の条件で4000エピソード実行する．
 
-〈3･2〉結果・考察
+## 〈3･2〉結果・考察
 
 まずSource taskの実験結果として，図2の各障害物配置における強化学習した移動経路を図6に示す．移動経路は，ロボットの1行動毎に座標を記録している．各障害物は静止しているため，その障害物や壁に衝突しないでゴールにたどり着いていることが確認できた．次に，知識選択を行いながら移動障害物を回避した経路を図7と図8に示す．Webotsでの物理演算シミュレーションはセンサのノイズによる移動誤差が存在するため，複数の経路がTarget taskにて発現した．図7では，移動障害物に対して衝突するような状況になったら知識選択を行い，一度旋回して障害物から遠ざかる方向に移動し，再度ゴール方向へ旋回を繰り返すことで障害物を回避しながらゴールエリアへの到達を行っている．図8の結果では，移動障害物に衝突しない範囲で直進し，知識選択をしながら障害物から遠ざかる方向に旋回してゴールエリアへの到達を達成する移動経路となった．
 
+![](./image/02_paper_C_01_09.png)
+図 6 各障害物配置における学習した移動軌跡
+
+
 図7と図8の移動軌跡は共に，前進してから後退する行動がしばしば見られた．これはSource taskにおける学習が十分でないことも考えられ，とりわけロボットの移動スタート地点ではゴール報酬の行動価値が伝搬しているが行動価値による行動選択において行動が固定化されない探査の余地が残っていることも考えられる．
 
-4．　結言
+
+![](./image/02_paper_C_01_10.png)
+図 7 障害物回避の移動軌跡例
+
+![](./image/02_paper_C_01_11.png)
+図 8 障害物回避の移動軌跡例
+
+# 4．結言
 
 本論文では，自律移動ロボットの動的障害物回避を目的として，知識選択型転移強化学習であるSAP-netのハイパーパラメータを調整することで動的障害物回避が実現可能であることを示唆した．実験では物理演算シミュレータであるWebotsを採用し，2輪型移動ロボットが前進や後退，右旋回，左旋回の行動が実行できる設定において，5種類の障害物配置で強化学習を行い，それらの行動価値関数を選択して，Target taskである移動障害物を回避する実験を行った．結果として複数の移動軌跡となる振る舞いが発現したが，シミュレータのセンサノイズや移動誤差などによるものだと考えられる．しかし環境に応じて適応的に移動障害物を回避しながらゴールエリアへの達成を実現した．
 
 今後の課題は次のとおりである．本論文の実験では，少ない知識（行動価値関数）数における選択であったことや動的障害物が単調な移動しか行わない条件でのシミュレーション検証であった．今後はより複雑な条件でのシミュレーションや実際の移動ロボットへの実装も実施する．また，知識選択における選択順序などの妥当性や解析を行うことも今後の課題である．
 
-謝　　　辞
+# 謝辞
 
-`　`本研究の一部はJSPS科研費JP23K11276の助成を受けたものである．
+本研究の一部はJSPS科研費JP23K11276の助成を受けたものである．
 
-![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.006.png)文　　　献
+# 文献
 
-(１)	H． Kono， R． Katayama， Y． Takakuwa， W． Wen， and T． Suzuki: "Activation and Spreading Sequence for Spreading Activation Policy Selection Method in Transfer Reinforcement Learning"， International Journal of Advanced Computer Science and Applications， Vol．10， No．12， pp．7-16 (2019)
+(１)H． Kono， R． Katayama， Y． Takakuwa， W． Wen， and T． Suzuki: "Activation and Spreading Sequence for Spreading Activation Policy Selection Method in Transfer Reinforcement Learning"， International Journal of Advanced Computer Science and Applications， Vol．10， No．12， pp．7-16 (2019)
 
-(２)	河野仁，坂本裕都，温文，藤井浩光，池勇勳，鈴木剛，“知識選択型転移強化学習を用いたシニアカーの自律運転”，2022年電気学会電子・情報・システム部門大会，pp． 714-718，広島，2022．
+(２)河野仁，坂本裕都，温文，藤井浩光，池勇勳，鈴木剛，“知識選択型転移強化学習を用いたシニアカーの自律運転”，2022年電気学会電子・情報・システム部門大会，pp． 714-718，広島，2022．
 
-(３)	R． S． Sutton and A． G． Barto (1998)． “Reinforcement learning: An　introduction．” MIT press．
+(３)R． S． Sutton and A． G． Barto (1998)． “Reinforcement learning: An　introduction．” MIT press．
 
-(４)	M． E． Taylor: "Transfer in Reinforcement Learning Domains"， Springer， Vol． 216 (2009)
-
-![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.007.png)
-
-図 6 各障害物配置における学習した移動軌跡
-
-![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.008.png)
-
-図 7 障害物回避の移動軌跡例
-
-![](./image/Aspose.Words.97bddba4-dddc-4427-b763-c611bdf4a30b.009.png)
-
-図 8 障害物回避の移動軌跡例
-
-
+(４)M． E． Taylor: "Transfer in Reinforcement Learning Domains"， Springer， Vol． 216 (2009)
